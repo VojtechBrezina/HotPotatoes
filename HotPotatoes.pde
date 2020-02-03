@@ -1,26 +1,21 @@
-/*
-cara, na ni hrac
-pohybujes se smerem
-zmenis ho tlacitkem
-padaji veci, uhybani
-lajny se daji pridavat
+private static final int SCREEN_SIZE = 500; //The size of the gameScreen
+private static final int GUI_HEIGHT = 100;  //Space required for score and other things
 
-stejny zaklad
-plosinka
-neuhybas, ale odrazis micky s cisly
-cislo se snizuje o jedna a micky zmizi na nule, zadny nesmi spadnout
-*/
-
-
+private static final int TICK_DELAY = 50; //20tps
+private int lastTick;
 
 public void settings(){
-  
+  size(SCREEN_SIZE, SCREEN_SIZE + GUI_HEIGHT);
 }
 
 public void setup(){
-  
+  newGame();
 }
 
 public void draw(){
-  
+  renderFrame();
+  if(millis() - lastTick >= TICK_DELAY){
+    lastTick += TICK_DELAY;
+    gameTick();
+  }
 }
