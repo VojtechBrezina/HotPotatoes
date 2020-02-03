@@ -5,16 +5,21 @@ private static final color PLAYER_COLOR = #7BDE98;
 private void renderFrame(){
   background(255);
   
-  displayGUI();
-  
   //the game is rendered under the gui and we'd like to have the coordinates adjusted
+  pushMatrix();
   translate(0, GUI_HEIGHT);
   displayPlayer();
+  for(Potato p : potatoes)
+    p.display();
+  popMatrix();
+  
+  displayGUI();
 }
 
 //score and things like that
 private void displayGUI(){
-  
+  stroke(0);
+  line(0, GUI_HEIGHT, SCREEN_SIZE, GUI_HEIGHT);
 }
 
 //display the player
