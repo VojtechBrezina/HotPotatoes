@@ -8,3 +8,9 @@ private static final float PLAYER_HEIGHT = 0.07 * SCREEN_SIZE;
 private static final float PLAYER_Y = 0.9 * SCREEN_SIZE;
 
 private float playerX;
+
+//do one tick with the player
+private void handlePlayer(){
+  //player moves with the mouse, but leaves a small gap between himself and the edge
+  playerX = max(PLAYER_WIDTH / 2 + 10, min(SCREEN_SIZE - PLAYER_WIDTH / 2 - 10, mouseX));
+}

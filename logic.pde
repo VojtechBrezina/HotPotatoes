@@ -9,5 +9,5 @@ private void newGame(){
 
 //one tick of the game
 private void gameTick(){
-  
+  handlePlayer();
 }
