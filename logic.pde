@@ -19,4 +19,6 @@ private void newGame(){
 //one tick of the game
 private void gameTick(){
   handlePlayer();
+  for(Potato p : potatoes)
+    p.tick();
 }
