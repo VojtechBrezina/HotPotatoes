@@ -41,7 +41,7 @@ private void makeWalls(){
   PolygonShape wallShape = new PolygonShape();
   float wallSize = box2d.scalarPixelsToWorld(SCREEN_SIZE / 2);                                //--v--  not wotking though - might make it afeature...
   float bottomGap = box2d.scalarPixelsToWorld(SCREEN_SIZE - PLAYER_Y - PLAYER_HEIGHT / 2) / 2;//to make sure the player won't smash potatoes agaist the wall
-  wallShape.setAsBox(wallSize, wallSize - bottomGap);
+  wallShape.setAsBox(wallSize, wallSize);
   
   FixtureDef wallFixture = new FixtureDef();
   wallFixture.setShape(wallShape);
@@ -50,15 +50,15 @@ private void makeWalls(){
   BodyDef wallBodyDef = new BodyDef();
   wallBodyDef.type = BodyType.STATIC;
   
-  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * -0.5, SCREEN_SIZE * 0.5 - bottomGap));
+  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * -0.5, SCREEN_SIZE * 0.5));
   leftWall = box2d.createBody(wallBodyDef);
   leftWall.createFixture(wallFixture);
   
-  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 1.5, SCREEN_SIZE * 0.5 - bottomGap));
+  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 1.5, SCREEN_SIZE * 0.5));
   rightWall = box2d.createBody(wallBodyDef);
   rightWall.createFixture(wallFixture);
   
-  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 0.5, SCREEN_SIZE * -0.5 + bottomGap * 2));
+  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 0.5, SCREEN_SIZE * -0.5));
   topWall = box2d.createBody(wallBodyDef);
   topWall.createFixture(wallFixture);
 }
