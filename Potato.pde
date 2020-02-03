@@ -3,8 +3,8 @@
 private static final float POTATO_RADIUS = 0.05 * SCREEN_SIZE;
 private static final int POTATO_STARTING_LIVES = 5;
 private static final int POTATO_STARTING_LIVES_AT_1000_SCORE = 20;
-private static final int POTATO_STARTING_SPEED = 10;
-private static final int POTATO_STARTING_SPEED_AT_1000_SCORE = 5;
+private static final int POTATO_STARTING_SPEED = 50;
+private static final int POTATO_STARTING_SPEED_AT_1000_SCORE = 100;
 
 private int potatoStartingLives(){
   return int(map(score, 0, 1000, POTATO_STARTING_LIVES, POTATO_STARTING_LIVES_AT_1000_SCORE));
