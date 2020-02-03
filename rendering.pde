@@ -28,6 +28,6 @@ private void displayPlayer(){
   noStroke();
   fill(PLAYER_COLOR);
   rectMode(CENTER);
-  rect(playerX, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+  rect(box2d.getBodyPixelCoord(playerBody).x, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
   popStyle();
 }
