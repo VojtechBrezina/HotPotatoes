@@ -22,8 +22,16 @@ private class Potato{
   }
   
   public void display(){
+    String l = String.valueOf(lives);
+    float s = POTATO_RADIUS / l.length();
     noStroke();
     fill(255, 255, 0);
     circle(x, y, POTATO_RADIUS * 2);
+    fill(255);
+    circle(x, y, POTATO_RADIUS * 1.4);
+    fill(0);
+    textSize(s);
+    textAlign(CENTER);
+    text(l, x, y + s / 2 * 0.8);
   }
 }
