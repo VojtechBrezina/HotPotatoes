@@ -11,7 +11,8 @@ private void newGame(){
   potatoes.clear();
   
   //for testing
-  potatoes.add(new Potato());
+  for(int i = 0; i < 20; i++)
+    potatoes.add(new Potato());
   
   lastTick = millis();
 }
@@ -19,6 +20,5 @@ private void newGame(){
 //one tick of the game
 private void gameTick(){
   handlePlayer();
-  for(Potato p : potatoes)
-    p.tick();
+  box2d.step();
 }
