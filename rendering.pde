@@ -4,8 +4,11 @@ private static final color PLAYER_COLOR = #7BDE98;
 //render one frame of the game
 private void renderFrame(){
   background(255);
+  
   displayGUI();
-  translate(0, GUI_HEIGHT);//the game is rendered under the gui and we'd like to have the coordinates adjusted
+  
+  //the game is rendered under the gui and we'd like to have the coordinates adjusted
+  translate(0, GUI_HEIGHT);
   displayPlayer();
 }
 
