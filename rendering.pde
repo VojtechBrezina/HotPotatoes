@@ -20,6 +20,13 @@ private void renderFrame(){
 private void displayGUI(){
   stroke(0);
   line(0, GUI_HEIGHT, SCREEN_SIZE, GUI_HEIGHT);
+  textSize(40);
+  textAlign(LEFT);
+  text("Score:", 10, 40);
+  text("Lives: ", SCREEN_SIZE / 2 + 5, 40);
+  textAlign(RIGHT);
+  text(score, SCREEN_SIZE / 2 - 5, 40);
+  text(playerLives, SCREEN_SIZE - 10, 40);
 }
 
 //display the player

@@ -14,6 +14,7 @@ private void initPhysics(){
   box2d = new Box2DProcessing(this);
   box2d.createWorld();
   box2d.setGravity(0, 0);
+  box2d.listenForCollisions();
   
   definePotato();
   makeWalls();
@@ -38,8 +39,9 @@ private void definePotato(){
 //prepare the invisible walls around the world
 private void makeWalls(){
   PolygonShape wallShape = new PolygonShape();
-  float wallSize = box2d.scalarPixelsToWorld(SCREEN_SIZE / 2);
-  wallShape.setAsBox(wallSize, wallSize);
+  float wallSize = box2d.scalarPixelsToWorld(SCREEN_SIZE / 2);                                //--v--  not wotking though - might make it afeature...
+  float bottomGap = box2d.scalarPixelsToWorld(SCREEN_SIZE - PLAYER_Y - PLAYER_HEIGHT / 2) / 2;//to make sure the player won't smash potatoes agaist the wall
+  wallShape.setAsBox(wallSize, wallSize - bottomGap);
   
   FixtureDef wallFixture = new FixtureDef();
   wallFixture.setShape(wallShape);
@@ -48,15 +50,15 @@ private void makeWalls(){
   BodyDef wallBodyDef = new BodyDef();
   wallBodyDef.type = BodyType.STATIC;
   
-  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * -0.5, SCREEN_SIZE * 0.5));
+  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * -0.5, SCREEN_SIZE * 0.5 - bottomGap));
   leftWall = box2d.createBody(wallBodyDef);
   leftWall.createFixture(wallFixture);
   
-  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 1.5, SCREEN_SIZE * 0.5));
+  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 1.5, SCREEN_SIZE * 0.5 - bottomGap));
   rightWall = box2d.createBody(wallBodyDef);
   rightWall.createFixture(wallFixture);
   
-  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 0.5, SCREEN_SIZE * -0.5));
+  wallBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 0.5, SCREEN_SIZE * -0.5 + bottomGap * 2));
   topWall = box2d.createBody(wallBodyDef);
   topWall.createFixture(wallFixture);
 }

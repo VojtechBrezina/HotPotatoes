@@ -19,7 +19,7 @@ private class Potato{
   Body body;
   
   //lives remaining until it breaks
-  private int lives;
+  private int lives; public int lives(){return lives;}//just to be clean about the acces
   
   public Potato(){
     float angle = random(TWO_PI);
@@ -34,6 +34,9 @@ private class Potato{
     body.setAngularVelocity(0);
     body.setLinearDamping(0);
     body.setAngularDamping(0);
+    
+    body.setUserData(this);//Hey, I'a Potato, and here is my motherobject
+    
     lives = potatoStartingLives();
   }
 
@@ -52,4 +55,24 @@ private class Potato{
     text(l, pos.x, pos.y + s / 2 * 0.8);
   }
   
+  public void handlePlayerCollision(){
+    lives--;
+    score++;
+  }
+  
+  public boolean dead(){
+    return lives <= 0;
+  }
+  
+  public boolean outOfScreen(){
+    return box2d.getBodyPixelCoord(body).y > SCREEN_SIZE + POTATO_RADIUS;
+  }
+  
+  //!make sure there are no ghost potatoes in the world!
+  //if destroyed by player, add some score and in future maybe trigger a powerup with some chance
+  public void destroy(boolean byPlayer){
+    if(byPlayer)
+      score += POTATO_BREAK_SCORE;
+    box2d.destroyBody(body);
+  }
 }

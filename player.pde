@@ -7,7 +7,11 @@ private static final float PLAYER_HEIGHT = 0.07 * SCREEN_SIZE;
 //the y-position is also relative to screen size
 private static final float PLAYER_Y = 0.9 * SCREEN_SIZE;
 
+private static final int START_PLAYER_LIVES = 20;
+
 private Body playerBody;
+
+private int playerLives;
 
 
 //prepare the physics of the player
@@ -27,6 +31,8 @@ private void makePlayerBody(){
   playerBodyDef.position.set(box2d.coordPixelsToWorld(SCREEN_SIZE * 0.5, PLAYER_Y));
   playerBody = box2d.createBody(playerBodyDef);
   playerBody.createFixture(playerFixture);
+  
+  playerBody.setUserData("Player");
 }
 
 //do one tick with the player
