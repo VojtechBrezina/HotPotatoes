@@ -4,7 +4,7 @@ private static final int POTATO_BREAK_SCORE = 10;
 private static final int START_POTATO_SPAWN_DELAY = 400;//20 seconds
 private static final int POTATO_SPAWN_DELAY_AT_1000_SCORE = 0;//:) 20 potatoes per second...
 private int potatoSpawnDelay(){return int(map(score, 0, 1000, START_POTATO_SPAWN_DELAY, POTATO_SPAWN_DELAY_AT_1000_SCORE));}
-private static final int STARTING_POTATOES = 3;
+private static final int STARTING_POTATOES = 1;
 
 private int score;
 private int highScore;
@@ -55,8 +55,8 @@ private void gameTick(){
       potatoes.remove(i);
     }
   }
-  
-  if(potatoSpawnTimer == 0){
+                              // it'boring otherwise
+  if(potatoSpawnTimer == 0 || potatoes.size() == 0){
     potatoSpawnTimer = potatoSpawnDelay();
     potatoes.add(new Potato());
   }else

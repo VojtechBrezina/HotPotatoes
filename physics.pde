@@ -13,7 +13,7 @@ private void initPhysics(){
   //get the world ready
   box2d = new Box2DProcessing(this);
   box2d.createWorld();
-  box2d.setGravity(0, 0);
+  box2d.setGravity(0, -2 * 1000.0 / TICK_DELAY);
   box2d.listenForCollisions();
   
   definePotato();
