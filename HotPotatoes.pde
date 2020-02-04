@@ -13,6 +13,11 @@ private static final int TICK_DELAY = 25; //40tps
 private int lastTick;
 
 public void settings(){
+  try{
+    highScore = parseInt(loadStrings("data.txt")[0]);
+  }catch(Exception e){
+    highScore = 0;
+  }
   size(SCREEN_SIZE, SCREEN_SIZE + GUI_HEIGHT);
 }
 

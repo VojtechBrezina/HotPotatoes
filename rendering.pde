@@ -24,9 +24,11 @@ private void displayGUI(){
   textSize(40);
   textAlign(LEFT);
   text("Score:", 10, 40);
+  text("High:", 10, 90);
   text("Lives: ", SCREEN_SIZE / 2 + 5, 40);
   textAlign(RIGHT);
   text(score, SCREEN_SIZE / 2 - 5, 40);
+  text(highScore, SCREEN_SIZE / 2 - 5, 90);
   text(playerLives, SCREEN_SIZE - 10, 40);
 }
 

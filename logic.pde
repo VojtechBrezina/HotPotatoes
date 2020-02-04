@@ -7,6 +7,7 @@ private int potatoSpawnDelay(){return int(map(score, 0, 1000, START_POTATO_SPAWN
 private static final int STARTING_POTATOES = 3;
 
 private int score;
+private int highScore;
 
 private ArrayList<Potato> potatoes = new ArrayList<Potato>();
 
@@ -15,6 +16,7 @@ private int potatoSpawnTimer;
 //reset everything so it's ready for a new game
 private void newGame(){
   score = 0;
+  saveStrings("data.txt", new String[]{String.valueOf(highScore)});
   
   for(Potato p : potatoes)
     p.destroy(false);//never just .clear() a list full of box2d bodies, that could get very messy
@@ -55,4 +57,6 @@ private void gameTick(){
     potatoes.add(new Potato());
   }else
     potatoSpawnTimer--;
+    
+  highScore = max(highScore, score);
 }
