@@ -1,10 +1,10 @@
 //the general game logic
 
 private static final int POTATO_BREAK_SCORE = 10;
-private static final int START_POTATO_SPAWN_DELAY = 200;//10 seconds
+private static final int START_POTATO_SPAWN_DELAY = 400;//20 seconds
 private static final int POTATO_SPAWN_DELAY_AT_1000_SCORE = 0;//:) 20 potatoes per second...
 private int potatoSpawnDelay(){return int(map(score, 0, 1000, START_POTATO_SPAWN_DELAY, POTATO_SPAWN_DELAY_AT_1000_SCORE));}
-private static final int STARTING_POTATOES = 5;
+private static final int STARTING_POTATOES = 3;
 
 private int score;
 

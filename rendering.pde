@@ -20,6 +20,7 @@ private void renderFrame(){
 private void displayGUI(){
   stroke(0);
   line(0, GUI_HEIGHT, SCREEN_SIZE, GUI_HEIGHT);
+  fill(0);
   textSize(40);
   textAlign(LEFT);
   text("Score:", 10, 40);

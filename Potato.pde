@@ -3,7 +3,7 @@
 private static final float POTATO_RADIUS = 0.05 * SCREEN_SIZE;
 private static final int POTATO_STARTING_LIVES = 5;
 private static final int POTATO_STARTING_LIVES_AT_1000_SCORE = 20;
-private static final int POTATO_STARTING_SPEED = 25;
+private static final int POTATO_STARTING_SPEED = 30;
 private static final int POTATO_STARTING_SPEED_AT_1000_SCORE = 50;
 
 private int potatoStartingLives(){
@@ -20,6 +20,7 @@ private class Potato{
   
   //lives remaining until it breaks
   private int lives; public int lives(){return lives;}//just to be clean about the acces
+  private final int startLives;
   
   public Potato(){
     float angle = random(TWO_PI);
@@ -37,22 +38,16 @@ private class Potato{
     
     body.setUserData(this);//Hey, I'a Potato, and here is my motherobject
     
-    lives = potatoStartingLives();
+    lives = startLives = potatoStartingLives();
   }
 
   public void display(){
-    String l = String.valueOf(lives);
-    float s = POTATO_RADIUS / l.length();
     Vec2 pos = box2d.getBodyPixelCoord(body);
     noStroke();
-    fill(255, 255, 0);
+    fill(150, 150, 0);
     circle(pos.x, pos.y, POTATO_RADIUS * 2);
     fill(255);
-    circle(pos.x, pos.y, POTATO_RADIUS * 1.4);
-    fill(0);
-    textSize(s);
-    textAlign(CENTER);
-    text(l, pos.x, pos.y + s / 2 * 0.69);
+    circle(pos.x, pos.y, sqrt(map(lives, startLives, 0, 0, PI * POTATO_RADIUS * POTATO_RADIUS)));
   }
   
   public void handlePlayerCollision(){

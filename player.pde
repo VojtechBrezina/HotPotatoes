@@ -42,5 +42,5 @@ private void handlePlayer(){
   float x = box2d.getBodyPixelCoord(playerBody).x;//actual x
   
                                         //convert the difference            and multiplay by ticks per second...
-  playerBody.setLinearVelocity(new Vec2(box2d.scalarPixelsToWorld(tx - x) * 1000.0 / TICK_DELAY, 0));
+  playerBody.setLinearVelocity(new Vec2(box2d.scalarPixelsToWorld(tx - x) * 1000.0 / TICK_DELAY * 2, 0));
 }
