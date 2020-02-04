@@ -28,11 +28,12 @@ public void setup(){
 }
 
 public void draw(){
-  renderFrame();
   if(millis() - lastTick >= TICK_DELAY){
     lastTick += TICK_DELAY;
     gameTick();
   }
+  
+  renderFrame();
 }
 
 //called whenever some two things collide in the game (an event just like mousePressed, that is called automaticaly)

@@ -18,6 +18,9 @@ private class Potato{
   //the box2D body
   Body body;
   
+  //it might have a powerup on it
+  Powerup powerup;
+  
   //lives remaining until it breaks
   private int lives; public int lives(){return lives;}//just to be clean about the acces
   private final int startLives;
@@ -39,6 +42,8 @@ private class Potato{
     body.setUserData(this);//Hey, I'a Potato, and here is my motherobject
     
     lives = startLives = potatoStartingLives();
+    
+    powerup = generatePowerup();
   }
 
   public void display(){
@@ -48,6 +53,19 @@ private class Potato{
     circle(pos.x, pos.y, POTATO_RADIUS * 2);
     fill(BACKGROUND_COLOR);//rendering tab
     circle(pos.x, pos.y, sqrt(map(lives, startLives, 0, 0, PI * POTATO_RADIUS * POTATO_RADIUS)));
+    
+    if(powerup != null){
+      pushMatrix();
+      translate(pos.x, pos.y);
+      scale(POTATO_RADIUS / 20);//TODO: the gui absolute dimensions are a nightmare !!!
+      powerup.display();
+      popMatrix();
+      
+      //temporary
+      fill(BACKGROUND_COLOR, 150);//rendering tab
+      circle(pos.x, pos.y, sqrt(map(lives, startLives, 0, 0, PI * POTATO_RADIUS * POTATO_RADIUS)));
+    }
+    
   }
   
   public void handlePlayerCollision(){
@@ -66,8 +84,11 @@ private class Potato{
   //!make sure there are no ghost potatoes in the world!
   //if destroyed by player, add some score and in future maybe trigger a powerup with some chance
   public void destroy(boolean byPlayer){
-    if(byPlayer)
+    if(byPlayer){
       score += POTATO_BREAK_SCORE;
+      if(powerup != null)
+        addPowerupToPlayer(powerup);
+    }
     box2d.destroyBody(body);
   }
 }
