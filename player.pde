@@ -44,3 +44,13 @@ private void handlePlayer(){
                                         //convert the difference            and multiplay by ticks per second...
   playerBody.setLinearVelocity(new Vec2(box2d.scalarPixelsToWorld(tx - x) * 1000.0 / TICK_DELAY * 2, 0));
 }
+
+//display the player
+private void displayPlayer(){
+  pushStyle();//the rectMode won't necesarilly be used for other things and it might get everything messy
+  noStroke();
+  fill(PLAYER_COLOR);
+  rectMode(CENTER);
+  rect(box2d.getBodyPixelCoord(playerBody).x, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+  popStyle();
+}

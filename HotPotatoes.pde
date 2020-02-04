@@ -13,17 +13,18 @@ private static final int TICK_DELAY = 25; //40tps
 private int lastTick;
 
 public void settings(){
+  size(SCREEN_SIZE, SCREEN_SIZE + GUI_HEIGHT);
+}
+
+public void setup(){
   try{
     highScore = parseInt(loadStrings("data.txt")[0]);
   }catch(Exception e){
     highScore = 0;
   }
-  size(SCREEN_SIZE, SCREEN_SIZE + GUI_HEIGHT);
-}
-
-public void setup(){
   initPhysics();
   newGame();
+  lastFrame = millis();
 }
 
 public void draw(){
@@ -40,11 +41,11 @@ public void beginContact(Contact cp){
   Object o1 = cp.getFixtureA().getBody().getUserData();
   Object o2 = cp.getFixtureB().getBody().getUserData();
   
-  if(o2 instanceof String && (String)o2 == "Player"){
+  if(o2 instanceof String && ((String)o2).equals("Player")){
     Object tmp = o2; o2 = o1; o1 = tmp; //if one of the bodies has the player tag, make sure it's the first one
   }
   
-  if(o1 instanceof String && (String)o1 == "Player" && o2 instanceof Potato){//if the other one has a potato attached to it
+  if(o1 instanceof String && ((String)o1).equals("Player") && o2 instanceof Potato){//if the other one has a potato attached to it
     ((Potato)o2).handlePlayerCollision();
   }
 }

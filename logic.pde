@@ -10,8 +10,9 @@ private int score;
 private int highScore;
 
 private ArrayList<Potato> potatoes = new ArrayList<Potato>();
-
 private int potatoSpawnTimer;
+
+private boolean paused = false;
 
 //reset everything so it's ready for a new game
 private void newGame(){
@@ -34,6 +35,9 @@ private void newGame(){
 
 //one tick of the game
 private void gameTick(){
+  if(paused)//just keep it inside
+    return;
+  
   handlePlayer();
   box2d.step();
   
