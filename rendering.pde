@@ -1,9 +1,14 @@
 //things for drawing
+
+//colors should be all in one place
 private static final color PLAYER_COLOR = #7BDE98;
+private static final color POTATO_COLOR = #BCB604;
+private static final color BACKGROUND_COLOR = #D0DCF0;
+private static final color GUI_COLOR = #0A0467;
 
 //render one frame of the game
 private void renderFrame(){
-  background(255);
+  background(BACKGROUND_COLOR);
   
   //the game is rendered under the gui and we'd like to have the coordinates adjusted
   pushMatrix();
@@ -18,9 +23,9 @@ private void renderFrame(){
 
 //score and things like that
 private void displayGUI(){
-  stroke(0);
+  stroke(GUI_COLOR);
   line(0, GUI_HEIGHT, SCREEN_SIZE, GUI_HEIGHT);
-  fill(0);
+  fill(GUI_COLOR);
   textSize(40);
   textAlign(LEFT);
   text("Score:", 10, 40);

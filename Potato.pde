@@ -44,9 +44,9 @@ private class Potato{
   public void display(){
     Vec2 pos = box2d.getBodyPixelCoord(body);
     noStroke();
-    fill(150, 150, 0);
+    fill(POTATO_COLOR);//rendering tab
     circle(pos.x, pos.y, POTATO_RADIUS * 2);
-    fill(255);
+    fill(BACKGROUND_COLOR);//rendering tab
     circle(pos.x, pos.y, sqrt(map(lives, startLives, 0, 0, PI * POTATO_RADIUS * POTATO_RADIUS)));
   }
   
