@@ -55,6 +55,18 @@ private void gameTick(){
       potatoes.remove(i);
     }
   }
+  
+  for(Powerup p : playerPowerups)
+    p.tick();
+  
+  for(int i = playerPowerups.size() - 1; i >= 0; i--){
+    Powerup p = playerPowerups.get(i);
+    if(p.dead()){
+      p.deactivate();
+      playerPowerups.remove(i);
+    }
+  }
+      
                               // it'boring otherwise
   if(potatoSpawnTimer == 0 || potatoes.size() == 0){
     potatoSpawnTimer = potatoSpawnDelay();

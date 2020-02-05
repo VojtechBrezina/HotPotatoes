@@ -16,7 +16,7 @@ private void addPowerupToPlayer(Powerup p){
     if(pp.add(p))//succesfuly merged with some other one
       return;
   }
-  //if no, we have to add it
+  //if not, we have to add it
   playerPowerups.add(p);
   p.activate();
 }

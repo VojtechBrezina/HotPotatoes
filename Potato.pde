@@ -82,7 +82,7 @@ private class Potato{
   }
   
   //!make sure there are no ghost potatoes in the world!
-  //if destroyed by player, add some score and in future maybe trigger a powerup with some chance
+  //if destroyed by player, add some score and activate the powerup
   public void destroy(boolean byPlayer){
     if(byPlayer){
       score += POTATO_BREAK_SCORE;
