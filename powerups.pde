@@ -56,7 +56,15 @@ private abstract class Powerup{
     return false;
   }
   
-  protected abstract void display();
+  protected void display(){//would make it abstract, but let me just keep things simple
+    fill(#45AEFC);
+    stroke(#1E79BC);
+    pushStyle();
+    strokeWeight(0.05);
+    square(-0.45, -0.45, 0.9);//this should make it look better on the potatoes
+    popStyle();
+  }
+  
   protected void deactivate(){}//not everything needs this one, but it'll be useful
 }
 
@@ -72,11 +80,16 @@ private class HealthPowerup extends Powerup{
   }
   
   public void display(){
+    super.display();
+    //too lazy to make a constant rn
+    stroke(#A20000);
     fill(#FC4560);
-    noStroke();
+    pushStyle();
+    strokeWeight(0.05);
     beginShape();
     //just trust me, it's a plus shape and I don't need a milion lines in this file
-    vertex(-5, -15);vertex(5, -15);vertex(5, -5);vertex(15, -5);vertex(15, 5);vertex(5, 5);vertex(5, 15);vertex(-5, 15);vertex(-5, 5);vertex(-15, 5);vertex(-15, -5);vertex(-5, -5);
+    vertex(-0.125, -0.375);vertex(0.125, -0.375);vertex(0.125, -0.125);vertex(0.375, -0.125);vertex(0.375, 0.125);vertex(0.125, 0.125);vertex(0.125, 0.375);vertex(-0.125, 0.375);vertex(-0.125, 0.125);vertex(-0.375, 0.125);vertex(-0.375, -0.125);vertex(-0.125, -0.125);
     endShape(CLOSE);
+    popStyle();
   }
 }

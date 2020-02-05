@@ -30,7 +30,7 @@ private void definePotato(){
   potatoFixture.setShape(potatoShape);
   potatoFixture.setDensity(1);
   potatoFixture.setFriction(0);
-  potatoFixture.setRestitution(1);
+  potatoFixture.setRestitution(0.95);
   
   potatoBodyDef = new BodyDef();
   potatoBodyDef.type = BodyType.DYNAMIC;

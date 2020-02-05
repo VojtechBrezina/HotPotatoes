@@ -6,8 +6,7 @@ import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
 
-private static final int SCREEN_SIZE = 500; //The size of the gameScreen
-private static final int GUI_HEIGHT = 100;  //Space required for score and other things
+private static final int SCREEN_SIZE = 700; //The size of the gameScreen
 
 private static final int TICK_DELAY = 25; //40tps
 private int lastTick;

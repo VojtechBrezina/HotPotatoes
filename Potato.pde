@@ -5,6 +5,7 @@ private static final int POTATO_STARTING_LIVES = 5;
 private static final int POTATO_STARTING_LIVES_AT_1000_SCORE = 20;
 private static final int POTATO_STARTING_SPEED = 30;
 private static final int POTATO_STARTING_SPEED_AT_1000_SCORE = 50;
+private static final float POTATO_POWERUP_SCALE = POTATO_RADIUS * cos(QUARTER_PI) * 2;
 
 private int potatoStartingLives(){
   return int(map(score, 0, 1000, POTATO_STARTING_LIVES, POTATO_STARTING_LIVES_AT_1000_SCORE));
@@ -48,24 +49,21 @@ private class Potato{
 
   public void display(){
     Vec2 pos = box2d.getBodyPixelCoord(body);
-    noStroke();
+    stroke(#8E8701);
     fill(POTATO_COLOR);//rendering tab
     circle(pos.x, pos.y, POTATO_RADIUS * 2);
-    fill(BACKGROUND_COLOR);//rendering tab
-    circle(pos.x, pos.y, sqrt(map(lives, startLives, 0, 0, PI * POTATO_RADIUS * POTATO_RADIUS)));
     
     if(powerup != null){
       pushMatrix();
       translate(pos.x, pos.y);
-      scale(POTATO_RADIUS / 20);//TODO: the gui absolute dimensions are a nightmare !!!
+      scale(POTATO_POWERUP_SCALE);//might make a constant for that...
       powerup.display();
       popMatrix();
-      
-      //temporary
-      fill(BACKGROUND_COLOR, 150);//rendering tab
-      circle(pos.x, pos.y, sqrt(map(lives, startLives, 0, 0, PI * POTATO_RADIUS * POTATO_RADIUS)));
     }
     
+    stroke(#8E8701);
+    fill(BACKGROUND_COLOR);//rendering tab
+    circle(pos.x, pos.y, sqrt(map(lives, startLives, 0, 0, PI * POTATO_RADIUS * POTATO_RADIUS)));
   }
   
   public void handlePlayerCollision(){

@@ -48,7 +48,7 @@ private void handlePlayer(){
 //display the player
 private void displayPlayer(){
   pushStyle();//the rectMode won't necesarilly be used for other things and it might get everything messy
-  noStroke();
+  stroke(#02C1A9);
   fill(PLAYER_COLOR);
   rectMode(CENTER);
   rect(box2d.getBodyPixelCoord(playerBody).x, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
