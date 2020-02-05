@@ -1,7 +1,7 @@
 //everything you need to know about potatoes :)
 
 private static final float POTATO_RADIUS = 0.05 * SCREEN_SIZE;
-private static final int POTATO_STARTING_LIVES = 5;
+private static final int POTATO_STARTING_LIVES = 2;
 private static final int POTATO_STARTING_LIVES_AT_1000_SCORE = 20;
 private static final int POTATO_STARTING_SPEED = 30;
 private static final int POTATO_STARTING_SPEED_AT_1000_SCORE = 50;
@@ -67,8 +67,9 @@ private class Potato{
   }
   
   public void handlePlayerCollision(){
-    lives--;
-    score++;
+    int damage = min(lives, 1 + spikesLevel);
+    lives -= damage;
+    score += damage;
   }
   
   public boolean dead(){
@@ -83,7 +84,7 @@ private class Potato{
   //if destroyed by player, add some score and activate the powerup
   public void destroy(boolean byPlayer){
     if(byPlayer){
-      score += POTATO_BREAK_SCORE;
+      score += POTATO_BREAK_SCORE;//logic tab
       if(powerup != null)
         addPowerupToPlayer(powerup);
     }

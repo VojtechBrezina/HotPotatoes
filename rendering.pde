@@ -28,9 +28,10 @@ private void renderFrame(){
   //the game is rendered under the gui and we'd like to have the coordinates adjusted
   pushMatrix();
   translate(0, GUI_HEIGHT);
-  displayPlayer();
   for(Potato p : potatoes)
     p.display();
+  
+  displayPlayer();
   popMatrix();
   
   displayGUI();//gui tab (it was getting long)

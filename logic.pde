@@ -1,7 +1,7 @@
 //the general game logic
 
-private static final int POTATO_BREAK_SCORE = 10;
-private static final int START_POTATO_SPAWN_DELAY = 400;//20 seconds
+private static final int POTATO_BREAK_SCORE = 3;
+private static final int START_POTATO_SPAWN_DELAY = 400;//10 seconds
 private static final int POTATO_SPAWN_DELAY_AT_1000_SCORE = 0;//:) 20 potatoes per second...
 private int potatoSpawnDelay(){return int(map(score, 0, 1000, START_POTATO_SPAWN_DELAY, POTATO_SPAWN_DELAY_AT_1000_SCORE));}
 private static final int STARTING_POTATOES = 1;
@@ -13,6 +13,9 @@ private ArrayList<Potato> potatoes = new ArrayList<Potato>();
 private int potatoSpawnTimer;
 
 private boolean paused = false;
+
+//amount of spikes powerups
+private int spikesLevel;
 
 //reset everything so it's ready for a new game
 private void newGame(){
@@ -29,6 +32,8 @@ private void newGame(){
     potatoes.add(new Potato());
   
   potatoSpawnTimer = potatoSpawnDelay();
+  
+  spikesLevel = 0;
   
   lastTick = millis();
 }
@@ -62,7 +67,6 @@ private void gameTick(){
   for(int i = playerPowerups.size() - 1; i >= 0; i--){
     Powerup p = playerPowerups.get(i);
     if(p.dead()){
-      p.deactivate();
       playerPowerups.remove(i);
     }
   }

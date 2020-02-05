@@ -8,6 +8,9 @@ private Powerup generatePowerup(){
   float r = random(100);
   if(r <= 10)//10%
     return new HealthPowerup();
+  
+  if(r <= 20)//10% + 10%
+    return new SpikesPowerup();
   return null;
 }
 
@@ -91,5 +94,36 @@ private class HealthPowerup extends Powerup{
     vertex(-0.125, -0.375);vertex(0.125, -0.375);vertex(0.125, -0.125);vertex(0.375, -0.125);vertex(0.375, 0.125);vertex(0.125, 0.125);vertex(0.125, 0.375);vertex(-0.125, 0.375);vertex(-0.125, 0.125);vertex(-0.375, 0.125);vertex(-0.375, -0.125);vertex(-0.125, -0.125);
     endShape(CLOSE);
     popStyle();
+  }
+}
+
+//spikes boost the damage dealt to potatoes
+//they don't add up the time, but they are upgraded for even greater damage
+private class SpikesPowerup extends Powerup{
+  public SpikesPowerup(){
+    super(400);//10 seconds
+  }
+  
+  public void display(){
+    super.display();
+    pushStyle();
+    strokeWeight(0.05);
+    stroke(#5A6781);
+    fill(#7D9DC4);
+    triangle(-0.3, 0.3, 0, -0.3, 0.3, 0.3);
+    popStyle();
+  }
+  
+  public void activate(){
+    super.activate();
+    spikesLevel++;
+  }
+  
+  public void deactivate(){
+    spikesLevel--;
+  }
+  
+  public boolean add(Powerup p){
+    return false;//doesn't add up
   }
 }

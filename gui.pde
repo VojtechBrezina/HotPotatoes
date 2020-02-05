@@ -11,6 +11,11 @@ private static final float PAUSE_BUTTON_Y = GUI_PADDING;
 private static final float PAUSE_BUTTON_SIZE = GUI_LINE_HEIGHT - GUI_PADDING * 2;
 private boolean pauseButtonHovered = false;
 
+//powerups stuff
+private static final float POWERUPS_X = SCREEN_SIZE - GUI_LINE_HEIGHT + GUI_PADDING;//the're drawn rtl
+private static final float POWERUPS_Y = GUI_LINE_HEIGHT * 2.5;
+private static final float POWERUPS_SIZE = GUI_LINE_HEIGHT - GUI_PADDING * 2;
+
 //score and things like that
 private void displayGUI(){
   stroke(GUI_COLOR);
@@ -28,6 +33,15 @@ private void displayGUI(){
   text(score, SCREEN_SIZE / 2 - GUI_PADDING, GUI_LINE_HEIGHT - GUI_PADDING);
   text(highScore, SCREEN_SIZE / 2 - GUI_PADDING, GUI_LINE_HEIGHT * 2 - GUI_PADDING);
   text(playerLives, SCREEN_SIZE - GUI_PADDING, GUI_LINE_HEIGHT * 2 - GUI_PADDING);
+  
+  //powerups
+  for(int i = 0; i < playerPowerups.size(); i++){
+    pushMatrix();
+    translate(POWERUPS_X - i * (POWERUPS_SIZE + GUI_PADDING), POWERUPS_Y);
+    scale(POWERUPS_SIZE);
+    playerPowerups.get(i).display();
+    popMatrix();
+  }
   
   //pause button
   pushMatrix();

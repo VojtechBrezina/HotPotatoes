@@ -4,6 +4,9 @@
 private static final float PLAYER_WIDTH = 0.3 * SCREEN_SIZE;
 private static final float PLAYER_HEIGHT = 0.07 * SCREEN_SIZE;
 
+//spike size for the visualisation
+private static final float SPIKE_RADIUS = PLAYER_HEIGHT * 0.2;
+
 //the y-position is also relative to screen size
 private static final float PLAYER_Y = 0.9 * SCREEN_SIZE;
 
@@ -47,10 +50,26 @@ private void handlePlayer(){
 
 //display the player
 private void displayPlayer(){
+  float playerX = box2d.getBodyPixelCoord(playerBody).x;
+  
   pushStyle();//the rectMode won't necesarilly be used for other things and it might get everything messy
   stroke(#02C1A9);
   fill(PLAYER_COLOR);
   rectMode(CENTER);
-  rect(box2d.getBodyPixelCoord(playerBody).x, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+  rect(playerX, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
   popStyle();
+  
+  //draw the spikes
+  {
+    int spikeCount = spikesLevel * 5;//five spikes per level, to have it nice
+    float spikeGap = PLAYER_WIDTH * 0.9 / spikeCount;
+    stroke(#5A6781);
+    fill(#7D9DC4);
+    for(int i = 0; i < spikeCount; i++){
+      pushMatrix();
+      translate(playerX - PLAYER_WIDTH * 0.45 + spikeGap * (i + 0.5), PLAYER_Y - PLAYER_HEIGHT / 2);
+      triangle(-SPIKE_RADIUS, 0, 0, -SPIKE_RADIUS * 3, SPIKE_RADIUS, 0);
+      popMatrix();
+    }
+  }
 }
