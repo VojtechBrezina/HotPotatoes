@@ -79,6 +79,12 @@ private void gameTick(){
     potatoes.add(new Potato());
   }else
     potatoSpawnTimer--;
+  
+  for(Particle p : particles)
+    p.tick();
+  for(int i = particles.size() - 1; i >= 0; i--)
+    if(particles.get(i).dead())
+      particles.remove(i);
     
   highScore = max(highScore, score);
   

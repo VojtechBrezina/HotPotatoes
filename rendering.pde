@@ -32,6 +32,9 @@ private void renderFrame(){
     p.display();
   
   displayPlayer();
+  
+  for(Particle p : particles)
+    p.display();
   popMatrix();
   
   displayGUI();//gui tab (it was getting long)

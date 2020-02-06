@@ -22,6 +22,7 @@ public void setup(){
     highScore = 0;
   }
   initPhysics();
+  prepareParticles();
   newGame();
   lastFrame = millis();
 }
