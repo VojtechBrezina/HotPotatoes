@@ -51,9 +51,6 @@ private void gameTick(){
   handlePlayer();
   box2d.step();
   
-  if(playerLives <= 0)
-    newGame();
-  
   for(int i = potatoes.size() - 1; i >= 0; i--){
     Potato p = potatoes.get(i);
     if(p.dead()){
@@ -84,4 +81,7 @@ private void gameTick(){
     potatoSpawnTimer--;
     
   highScore = max(highScore, score);
+  
+ if(playerLives <= 0)
+    newGame();
 }
