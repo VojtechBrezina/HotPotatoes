@@ -73,8 +73,28 @@ public void mouseMoved(){
 }
 
 public void mousePressed(){
+  //pause button
   if(mouseInsidePauseButton()){
     paused = !paused;
     return;
+  }
+}
+
+//!important The system will spam this event as long as you hold the key (as often as in the system settings for key repeating) and we want only the first press
+private boolean pauseKeyPressed = false;
+public void keyPressed(){
+  switch(key){
+    case 'p':
+      if(!pauseKeyPressed){
+        paused = !paused;
+        pauseKeyPressed = true;
+      }
+  }
+}
+
+public void keyReleased(){
+  switch(key){
+    case 'p':
+      pauseKeyPressed = false;
   }
 }
