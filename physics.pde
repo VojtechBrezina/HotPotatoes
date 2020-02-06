@@ -20,7 +20,6 @@ private void initPhysics(){
   
   definePotato();
   makeWalls();
-  makePlayerBody();//in the player tab
 }
 
 //define the potato for reusing

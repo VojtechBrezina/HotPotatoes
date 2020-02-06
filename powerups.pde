@@ -14,6 +14,9 @@ private Powerup generatePowerup(){
     
   if(r <= 30)//10% + ^20%^
     return new WeakGravityPowerup();
+    
+  if(r <= 40)//10% + ^30%^
+    return new IncreaseWidthPowerup();
   
   return null;
 }
@@ -156,5 +159,33 @@ private class WeakGravityPowerup extends Powerup{
   
   public void deactivate(){
     box2d.setGravity(0, DEFAULT_GRAVITY);
+  }
+}
+
+private class IncreaseWidthPowerup extends Powerup{
+  public IncreaseWidthPowerup(){
+    super(400);//10seconds
+  }
+  
+  public void display(){
+    super.display();
+    pushStyle();
+    strokeWeight(0.05);
+    stroke(#02B93A);
+    fill(#73FC9D);
+    rect(-0.3, 0.1, 0.6, 0.2);
+    stroke(#003BB7);
+    fill(#739FFC);
+    rect(-0.15, 0.1, 0.3, 0.2);
+    popStyle();
+  }
+  
+  public void activate(){
+    super.activate();
+    makePlayerBody(PLAYER_INCREASED_WIDTH);
+  }
+  
+  public void deactivate(){
+    makePlayerBody(PLAYER_WIDTH);
   }
 }

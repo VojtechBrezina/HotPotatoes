@@ -1,7 +1,7 @@
 //things for drawing
 
 //colors should be all in one place
-private static final color PLAYER_COLOR = #7BDE98;
+//private static final color PLAYER_COLOR = #7BDE98;
 private static final color POTATO_COLOR = #BCB308;
 private static final color BACKGROUND_COLOR = #D0DCF0;
 private static final color GUI_COLOR = #0A0467;

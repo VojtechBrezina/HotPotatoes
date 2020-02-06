@@ -36,6 +36,8 @@ private void newGame(){
   spikesLevel = 0;
   box2d.setGravity(0, DEFAULT_GRAVITY);
   
+  makePlayerBody(PLAYER_WIDTH);//in the player tab
+  
   lastTick = millis();
 }
 
