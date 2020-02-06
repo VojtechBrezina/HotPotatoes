@@ -67,8 +67,8 @@ private abstract class Powerup{
   }
   
   protected void display(){//would make it abstract, but let me just keep things simple
-    fill(#45AEFC);
-    stroke(#1E79BC);
+    fill(POWERUP_FILL_COLOR);
+    stroke(POWERUP_STROKE_COLOR);
     pushStyle();
     strokeWeight(0.05);
     square(-0.45, -0.45, 0.9);//this should make it look better on the potatoes
@@ -92,8 +92,8 @@ private class HealthPowerup extends Powerup{
   public void display(){
     super.display();
     //too lazy to make a constant rn
-    stroke(#A20000);
-    fill(#FC4560);
+    stroke(BONUS_HEALTH_STROKE_COLOR);
+    fill(BONUS_HEALTH_FILL_COLOR);
     pushStyle();
     strokeWeight(0.05);
     beginShape();
@@ -115,8 +115,8 @@ private class SpikesPowerup extends Powerup{
     super.display();
     pushStyle();
     strokeWeight(0.05);
-    stroke(#5A6781);
-    fill(#7D9DC4);
+    stroke(SPIKE_STROKE_COLOR);
+    fill(SPIKE_FILL_COLOR);
     triangle(-0.3, 0.3, 0, -0.3, 0.3, 0.3);
     popStyle();
   }
@@ -144,8 +144,8 @@ private class WeakGravityPowerup extends Powerup{
     super.display();
     pushStyle();
     strokeWeight(0.02);
-    stroke(#03A241);
-    fill(#28F779);
+    stroke(GRAVITY_ARROW_STROKE_COLOR);
+    fill(GRAVITY_ARROW_FILL_COLOR);
     translate(0, -0.1);                             //I am going mad from those shapes//
     beginShape();vertex(-0.05, -0.1);vertex(0.05, -0.1);vertex(0.05, 0.1);vertex(-0.05, 0.1);endShape(CLOSE);
     beginShape();vertex(-0.2, 0.25);vertex(-0.15, 0.2);vertex(-0.05, 0.25);vertex(-0.05, 0.2);vertex(0.05, 0.2);vertex(0.05, 0.25);vertex(0.15, 0.2);vertex(0.2, 0.25);vertex(0, 0.4);endShape(CLOSE);
@@ -171,11 +171,11 @@ private class IncreaseWidthPowerup extends Powerup{
     super.display();
     pushStyle();
     strokeWeight(0.05);
-    stroke(#02B93A);
-    fill(#73FC9D);
+    stroke(PLAYER_STROKE_COLOR);
+    fill(PLAYER_FILL_COLOR);
     rect(-0.3, 0.1, 0.6, 0.2);
-    stroke(#003BB7);
-    fill(#739FFC);
+    stroke(PLAYER_EXTENDED_STROKE_COLOR);
+    fill(PLAYER_EXTENDED_FILL_COLOR);
     rect(-0.15, 0.1, 0.3, 0.2);
     popStyle();
   }

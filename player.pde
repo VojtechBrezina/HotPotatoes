@@ -64,11 +64,11 @@ private void displayPlayer(){
   
   pushStyle();//the rectMode won't necesarilly be used for other things and it might get everything messy
   rectMode(CENTER);
-  stroke(#02B93A);
-  fill(#73FC9D);
+  stroke(PLAYER_STROKE_COLOR);
+  fill(PLAYER_FILL_COLOR);
   rect(playerX, PLAYER_Y, playerWidth, PLAYER_HEIGHT);
-  stroke(#003BB7);
-  fill(#739FFC);
+  stroke(PLAYER_EXTENDED_STROKE_COLOR);
+  fill(PLAYER_EXTENDED_FILL_COLOR);
   rect(playerX, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
   popStyle();
   
@@ -76,8 +76,8 @@ private void displayPlayer(){
   {
     int spikeCount = spikesLevel * int(playerWidth / 4 / SPIKE_RADIUS);//five spikes per level, to have it nice
     float spikeGap = playerWidth * 0.9 / spikeCount;
-    stroke(#5A6781);
-    fill(#7D9DC4);
+    stroke(SPIKE_STROKE_COLOR);
+    fill(SPIKE_FILL_COLOR);
     for(int i = 0; i < spikeCount; i++){
       pushMatrix();
       translate(playerX - playerWidth * 0.45 + spikeGap * (i + 0.5), PLAYER_Y - PLAYER_HEIGHT / 2);

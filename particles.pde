@@ -7,7 +7,7 @@ private PShape potatoParticleShape;
 private void prepareParticles(){
   potatoParticleShape = createShape();
   potatoParticleShape.beginShape();
-  potatoParticleShape.fill(POTATO_COLOR);
+  potatoParticleShape.fill(POTATO_FILL_COLOR);
   potatoParticleShape.noStroke();
   potatoParticleShape.vertex(-POTATO_RADIUS * 0.5, POTATO_RADIUS * 0.4);
   potatoParticleShape.vertex(POTATO_RADIUS * 0.5, POTATO_RADIUS * 0.4);
@@ -47,6 +47,6 @@ private abstract class Particle{
 
 private class PotatoParticle extends Particle{
   public PotatoParticle(float x, float y){
-    super(x, y, random(TWO_PI), random(-5, 5), random(-5, 1), random(-0.01, 0.01), potatoParticleShape);
+    super(x, y, random(TWO_PI), random(-5, 5), random(-8, -2), random(-0.1, 0.1), potatoParticleShape);
   }
 }

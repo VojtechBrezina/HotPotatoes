@@ -12,7 +12,7 @@ private static final float PAUSE_BUTTON_SIZE = GUI_LINE_HEIGHT - GUI_PADDING * 2
 private boolean pauseButtonHovered = false;
 
 //powerups stuff
-private static final float POWERUPS_X = SCREEN_SIZE - GUI_LINE_HEIGHT + GUI_PADDING;//the're drawn rtl
+private static final float POWERUPS_X = SCREEN_SIZE - GUI_LINE_HEIGHT / 2 - GUI_PADDING;//the're drawn rtl
 private static final float POWERUPS_Y = GUI_LINE_HEIGHT * 2.5;
 private static final float POWERUPS_SIZE = GUI_LINE_HEIGHT - GUI_PADDING * 2;
 

@@ -1,19 +1,31 @@
 //things for drawing
 
 //colors should be all in one place
-//private static final color PLAYER_COLOR = #7BDE98;
-private static final color POTATO_COLOR = #BCB308;
+private static final color PLAYER_FILL_COLOR = #73FC9D;
+private static final color PLAYER_STROKE_COLOR = #02B93A;
+private static final color PLAYER_EXTENDED_FILL_COLOR = #739FFC;
+private static final color PLAYER_EXTENDED_STROKE_COLOR = #003BB7;
+
+private static final color POTATO_FILL_COLOR = #BCB308;
+private static final color POTATO_STROKE_COLOR = #8E8701;
+
+private static final color POWERUP_FILL_COLOR = #45AEFC;
+private static final color POWERUP_STROKE_COLOR = #1E79BC;
+
+private static final color BONUS_HEALTH_FILL_COLOR = #FC4560;
+private static final color BONUS_HEALTH_STROKE_COLOR = #A20000;
+
+private static final color SPIKE_FILL_COLOR = #7D9DC4;
+private static final color SPIKE_STROKE_COLOR = #5A6781;
+
+private static final color GRAVITY_ARROW_FILL_COLOR = #28F779;
+private static final color GRAVITY_ARROW_STROKE_COLOR = #03A241;
+
 private static final color BACKGROUND_COLOR = #D0DCF0;
 private static final color GUI_COLOR = #0A0467;
 private static final color GUI_HOVER_COLOR = #03CEFF;
 
-//for animations
-/*private static final int ANIMATION_EMPTY = 0;
-private static final int ANIMATION_HOVER = 1;
-private static final int ANIMATION_LEAVE = 2;
-private static final int ANIMATION_ACTIVATE = 4;
-private static final int ANIMATION_DEACTIVATE = 8;*/
-
+//for animations (if any), that are independent on the game logic (might animate the pause button ant stuff)
 private int lastFrame;
 private int elapsedTime;
 
