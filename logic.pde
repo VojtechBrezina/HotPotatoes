@@ -26,6 +26,8 @@ private void newGame(){
     p.destroy(false);//never just .clear() a list full of box2d bodies, that could get very messy
   potatoes.clear();
   
+  playerPowerups.clear();
+  
   playerLives = START_PLAYER_LIVES;//adjustable in the player tab
 
   for(int i = 0; i < STARTING_POTATOES; i++)
