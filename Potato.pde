@@ -15,7 +15,7 @@ private int potatoStartingSpeed(){
   return int(map(score, 0, 1000, POTATO_STARTING_SPEED, POTATO_STARTING_SPEED_AT_1000_SCORE));
 }
 
-private class Potato{
+private final class Potato{
   //the box2D body
   Body body;
   

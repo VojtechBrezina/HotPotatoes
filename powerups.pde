@@ -4,6 +4,54 @@
 
 ArrayList<Powerup> playerPowerups = new ArrayList<Powerup>();
 
+private PShape healthPowerupShape, spikesPowerupShape, weakGravityPowerupShape, increaseWidthPowerupShape;
+private void preparePowerups(){
+  PShape child;//will be useful to compose complex things
+  
+  healthPowerupShape = createShape();
+  healthPowerupShape.beginShape();
+  healthPowerupShape.stroke(BONUS_HEALTH_STROKE_COLOR);
+  healthPowerupShape.fill(BONUS_HEALTH_FILL_COLOR);
+  healthPowerupShape.strokeWeight(0.05);
+  healthPowerupShape.vertex(-0.125, -0.375);healthPowerupShape.vertex(0.125, -0.375);healthPowerupShape.vertex(0.125, -0.125);healthPowerupShape.vertex(0.375, -0.125);
+  healthPowerupShape.vertex(0.375, 0.125);healthPowerupShape.vertex(0.125, 0.125);healthPowerupShape.vertex(0.125, 0.375);healthPowerupShape.vertex(-0.125, 0.375);
+  healthPowerupShape.vertex(-0.125, 0.125);healthPowerupShape.vertex(-0.375, 0.125);healthPowerupShape.vertex(-0.375, -0.125);healthPowerupShape.vertex(-0.125, -0.125);
+  healthPowerupShape.endShape(CLOSE);
+  
+  spikesPowerupShape = createShape(TRIANGLE, -0.3, 0.3, 0, -0.3, 0.3, 0.3);
+  spikesPowerupShape.setStrokeWeight(0.05);
+  spikesPowerupShape.setStroke(SPIKE_STROKE_COLOR);
+  spikesPowerupShape.setFill(SPIKE_FILL_COLOR);
+  
+  weakGravityPowerupShape = createShape(GROUP);
+  child = createShape(RECT, -0.05, -0.2, 0.1, 0.2);
+  child.setStrokeWeight(0.02);
+  child.setStroke(GRAVITY_ARROW_STROKE_COLOR);
+  child.setFill(GRAVITY_ARROW_FILL_COLOR);
+  weakGravityPowerupShape.addChild(child);
+  child = createShape();
+  child.beginShape();
+  child.strokeWeight(0.02);
+  child.stroke(GRAVITY_ARROW_STROKE_COLOR);
+  child.fill(GRAVITY_ARROW_FILL_COLOR);                                  //I am going mad from those shapes//
+  child.vertex(-0.2, 0.15);child.vertex(-0.15, 0.1);child.vertex(-0.05, 0.15);child.vertex(-0.05, 0.1);child.vertex(0.05, 0.1);child.vertex(0.05, 0.15);child.vertex(0.15, 0.1);
+  child.vertex(0.2, 0.15);child.vertex(0, 0.3);
+  child.endShape(CLOSE);
+  weakGravityPowerupShape.addChild(child);
+  
+  increaseWidthPowerupShape = createShape(GROUP);
+  child = createShape(RECT, -0.3, 0.1, 0.6, 0.2);
+  child.setStrokeWeight(0.05);
+  child.setStroke(PLAYER_STROKE_COLOR);
+  child.setFill(PLAYER_FILL_COLOR);
+  increaseWidthPowerupShape.addChild(child);
+  child = createShape(RECT, -0.15, 0.1, 0.3, 0.2);
+  child.setStrokeWeight(0.05);
+  child.setStroke(PLAYER_EXTENDED_STROKE_COLOR);
+  child.setFill(PLAYER_EXTENDED_FILL_COLOR);
+  increaseWidthPowerupShape.addChild(child);
+}
+
 private Powerup generatePowerup(){
   float r = random(100);
   if(r <= 10)//10%
@@ -35,10 +83,13 @@ private void addPowerupToPlayer(Powerup p){
 private abstract class Powerup{
   private int remainingTime;//some powerups have a timer
   private boolean active = false;
- public boolean dead(){return remainingTime <= 0;}
+  public boolean dead(){return remainingTime <= 0;}
   
-  protected Powerup(int time){
+  private PShape shape;
+  
+  protected Powerup(int time, PShape shape){
     remainingTime = time;
+    this.shape = shape;
   }
   
   //always use with super.activate(); or it won't end
@@ -46,7 +97,7 @@ private abstract class Powerup{
     active = true;
   }
   
-  public void tick(){//not ready for overrides yet
+  public final void tick(){//not ready for overrides yet
     if(active){
       remainingTime--;
       if(dead()){
@@ -66,12 +117,13 @@ private abstract class Powerup{
     return false;
   }
   
-  protected void display(){//would make it abstract, but let me just keep things simple
+  public final void display(){
     fill(POWERUP_FILL_COLOR);
     stroke(POWERUP_STROKE_COLOR);
     pushStyle();
     strokeWeight(0.05);
     square(-0.45, -0.45, 0.9);//this should make it look better on the potatoes
+    shape(shape);
     popStyle();
   }
   
@@ -79,46 +131,22 @@ private abstract class Powerup{
 }
 
 //a simple powerup that adds one life and diappears
-private class HealthPowerup extends Powerup{
+private final class HealthPowerup extends Powerup{
   public HealthPowerup(){
-    super(0);
+    super(0, healthPowerupShape);
   }
   
   public void activate(){
     super.activate();
     playerLives++;
   }
-  
-  public void display(){
-    super.display();
-    //too lazy to make a constant rn
-    stroke(BONUS_HEALTH_STROKE_COLOR);
-    fill(BONUS_HEALTH_FILL_COLOR);
-    pushStyle();
-    strokeWeight(0.05);
-    beginShape();
-    //just trust me, it's a plus shape and I don't need a milion lines in this file
-    vertex(-0.125, -0.375);vertex(0.125, -0.375);vertex(0.125, -0.125);vertex(0.375, -0.125);vertex(0.375, 0.125);vertex(0.125, 0.125);vertex(0.125, 0.375);vertex(-0.125, 0.375);vertex(-0.125, 0.125);vertex(-0.375, 0.125);vertex(-0.375, -0.125);vertex(-0.125, -0.125);
-    endShape(CLOSE);
-    popStyle();
-  }
 }
 
 //spikes boost the damage dealt to potatoes
 //they don't add up the time, but they are upgraded for even greater damage
-private class SpikesPowerup extends Powerup{
+private final class SpikesPowerup extends Powerup{
   public SpikesPowerup(){
-    super(800);//20 seconds
-  }
-  
-  public void display(){
-    super.display();
-    pushStyle();
-    strokeWeight(0.05);
-    stroke(SPIKE_STROKE_COLOR);
-    fill(SPIKE_FILL_COLOR);
-    triangle(-0.3, 0.3, 0, -0.3, 0.3, 0.3);
-    popStyle();
+    super(800, spikesPowerupShape);//20 seconds
   }
   
   public void activate(){
@@ -135,21 +163,9 @@ private class SpikesPowerup extends Powerup{
   }
 }
 
-private class WeakGravityPowerup extends Powerup{
+private final class WeakGravityPowerup extends Powerup{
   public WeakGravityPowerup(){
-    super(600);//15 seconds
-  }
-  
-  public void display(){
-    super.display();
-    pushStyle();
-    strokeWeight(0.02);
-    stroke(GRAVITY_ARROW_STROKE_COLOR);
-    fill(GRAVITY_ARROW_FILL_COLOR);
-    translate(0, -0.1);                             //I am going mad from those shapes//
-    beginShape();vertex(-0.05, -0.1);vertex(0.05, -0.1);vertex(0.05, 0.1);vertex(-0.05, 0.1);endShape(CLOSE);
-    beginShape();vertex(-0.2, 0.25);vertex(-0.15, 0.2);vertex(-0.05, 0.25);vertex(-0.05, 0.2);vertex(0.05, 0.2);vertex(0.05, 0.25);vertex(0.15, 0.2);vertex(0.2, 0.25);vertex(0, 0.4);endShape(CLOSE);
-    popStyle();
+    super(600, weakGravityPowerupShape);//15 seconds
   }
   
   public void activate(){
@@ -164,20 +180,7 @@ private class WeakGravityPowerup extends Powerup{
 
 private class IncreaseWidthPowerup extends Powerup{
   public IncreaseWidthPowerup(){
-    super(400);//10seconds
-  }
-  
-  public void display(){
-    super.display();
-    pushStyle();
-    strokeWeight(0.05);
-    stroke(PLAYER_STROKE_COLOR);
-    fill(PLAYER_FILL_COLOR);
-    rect(-0.3, 0.1, 0.6, 0.2);
-    stroke(PLAYER_EXTENDED_STROKE_COLOR);
-    fill(PLAYER_EXTENDED_FILL_COLOR);
-    rect(-0.15, 0.1, 0.3, 0.2);
-    popStyle();
+    super(400, increaseWidthPowerupShape);//10seconds
   }
   
   public void activate(){

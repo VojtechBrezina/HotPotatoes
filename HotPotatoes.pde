@@ -23,6 +23,7 @@ public void setup(){
   }
   initPhysics();
   prepareParticles();
+  preparePowerups();
   newGame();
   lastFrame = millis();
 }

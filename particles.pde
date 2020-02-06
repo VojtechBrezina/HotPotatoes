@@ -27,16 +27,16 @@ private abstract class Particle{
     this.shape = shape;
   }
   
-  public void tick(){
+  public final void tick(){
     x += dx; y += dy; r += dr;
     dy += 0.5;
   }
   
-  public boolean dead(){
+  public final boolean dead(){
     return y > SCREEN_SIZE + 100;
   }
   
-  public void display(){
+  public final void display(){
     pushMatrix();
     translate(x, y);
     rotate(r);
@@ -45,7 +45,7 @@ private abstract class Particle{
   }
 }
 
-private class PotatoParticle extends Particle{
+private final class PotatoParticle extends Particle{
   public PotatoParticle(float x, float y){
     super(x, y, random(TWO_PI), random(-5, 5), random(-8, -2), random(-0.1, 0.1), potatoParticleShape);
   }
