@@ -68,6 +68,9 @@ private class Potato{
   
   public void handlePlayerCollision(){
     int damage = min(lives, 1 + spikesLevel);
+      Vec2 pos = box2d.getBodyPixelCoord(body);
+    for(int i = 0; i < 3 * damage; i++)//the more damage, the more particles :)
+        particles.add(new PotatoParticle(pos.x + random(-POTATO_RADIUS , POTATO_RADIUS), pos.y + random(-POTATO_RADIUS , POTATO_RADIUS)));
     lives -= damage;
     score += damage;
   }
@@ -84,12 +87,9 @@ private class Potato{
   //if destroyed by player, add some score and activate the powerup
   public void destroy(boolean byPlayer){
     if(byPlayer){
-      Vec2 pos = box2d.getBodyPixelCoord(body);
       score += POTATO_BREAK_SCORE;//logic tab
       if(powerup != null)
         addPowerupToPlayer(powerup);
-      for(int i = 0; i < 5 * startLives + 2 * spikesLevel; i++)//the more damage, the more particles :)
-        particles.add(new PotatoParticle(pos.x + random(-POTATO_RADIUS , POTATO_RADIUS), pos.y + random(-POTATO_RADIUS , POTATO_RADIUS)));
     }
     box2d.destroyBody(body);
   }
