@@ -34,6 +34,7 @@ private void newGame(){
   potatoSpawnTimer = potatoSpawnDelay();
   
   spikesLevel = 0;
+  box2d.setGravity(0, DEFAULT_GRAVITY);
   
   lastTick = millis();
 }

@@ -9,8 +9,12 @@ private Powerup generatePowerup(){
   if(r <= 10)//10%
     return new HealthPowerup();
   
-  if(r <= 20)//10% + 10%
+  if(r <= 20)//10% + ^10%^
     return new SpikesPowerup();
+    
+  if(r <= 30)//10% + ^20%^
+    return new WeakGravityPowerup();
+  
   return null;
 }
 
@@ -101,7 +105,7 @@ private class HealthPowerup extends Powerup{
 //they don't add up the time, but they are upgraded for even greater damage
 private class SpikesPowerup extends Powerup{
   public SpikesPowerup(){
-    super(400);//10 seconds
+    super(800);//20 seconds
   }
   
   public void display(){
@@ -125,5 +129,32 @@ private class SpikesPowerup extends Powerup{
   
   public boolean add(Powerup p){
     return false;//doesn't add up
+  }
+}
+
+private class WeakGravityPowerup extends Powerup{
+  public WeakGravityPowerup(){
+    super(600);//15 seconds
+  }
+  
+  public void display(){
+    super.display();
+    pushStyle();
+    strokeWeight(0.02);
+    stroke(#03A241);
+    fill(#28F779);
+    translate(0, -0.1);                             //I am going mad from those shapes//
+    beginShape();vertex(-0.05, -0.1);vertex(0.05, -0.1);vertex(0.05, 0.1);vertex(-0.05, 0.1);endShape(CLOSE);
+    beginShape();vertex(-0.2, 0.25);vertex(-0.15, 0.2);vertex(-0.05, 0.25);vertex(-0.05, 0.2);vertex(0.05, 0.2);vertex(0.05, 0.25);vertex(0.15, 0.2);vertex(0.2, 0.25);vertex(0, 0.4);endShape(CLOSE);
+    popStyle();
+  }
+  
+  public void activate(){
+    super.activate();
+    box2d.setGravity(0, WEAK_GRAVITY);
+  }
+  
+  public void deactivate(){
+    box2d.setGravity(0, DEFAULT_GRAVITY);
   }
 }

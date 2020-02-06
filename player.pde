@@ -10,7 +10,7 @@ private static final float SPIKE_RADIUS = PLAYER_HEIGHT * 0.2;
 //the y-position is also relative to screen size
 private static final float PLAYER_Y = 0.9 * SCREEN_SIZE;
 
-private static final int START_PLAYER_LIVES = 20;
+private static final int START_PLAYER_LIVES = 5;
 
 private Body playerBody;
 

@@ -1,5 +1,8 @@
 //box2d stuff
 
+private static final float DEFAULT_GRAVITY = -2 * 1000.0 / TICK_DELAY;
+private static final float WEAK_GRAVITY = -0.5 * 1000.0 / TICK_DELAY;
+
 private Box2DProcessing box2d;
 
 private CircleShape potatoShape;
@@ -10,10 +13,9 @@ private Body leftWall, rightWall, topWall;
 
 //do everything needed to init the physics library
 private void initPhysics(){
-  //get the world ready
+  //get the world ready (gravity is set in newGame(), bc it's now a part of the game state)
   box2d = new Box2DProcessing(this);
   box2d.createWorld();
-  box2d.setGravity(0, -2 * 1000.0 / TICK_DELAY);
   box2d.listenForCollisions();
   
   definePotato();
