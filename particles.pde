@@ -3,7 +3,7 @@
 private ArrayList<Particle> particles = new ArrayList<Particle>();
 
 
-private PShape potatoParticleShape;
+private PShape potatoParticleShape, powerupParticleShape;
 private void prepareParticles(){
   potatoParticleShape = createShape();
   potatoParticleShape.beginShape();
@@ -13,6 +13,15 @@ private void prepareParticles(){
   potatoParticleShape.vertex(POTATO_RADIUS * 0.5, POTATO_RADIUS * 0.4);
   potatoParticleShape.vertex(0, POTATO_RADIUS * -0.5);
   potatoParticleShape.endShape(CLOSE);
+  
+  powerupParticleShape = createShape();
+  powerupParticleShape.beginShape();
+  powerupParticleShape.fill(POWERUP_FILL_COLOR);
+  powerupParticleShape.noStroke();
+  powerupParticleShape.vertex(-POTATO_RADIUS * 0.5, POTATO_RADIUS * 0.4);
+  powerupParticleShape.vertex(POTATO_RADIUS * 0.5, POTATO_RADIUS * 0.4);
+  powerupParticleShape.vertex(0, POTATO_RADIUS * -0.5);
+  powerupParticleShape.endShape(CLOSE);
 }
 
 
@@ -48,5 +57,11 @@ private abstract class Particle{
 private final class PotatoParticle extends Particle{
   public PotatoParticle(float x, float y){
     super(x, y, random(TWO_PI), random(-5, 5), random(-8, -2), random(-0.1, 0.1), potatoParticleShape);
+  }
+}
+
+private final class PowerupParticle extends Particle{
+  public PowerupParticle(float x, float y){
+    super(x, y, random(TWO_PI), random(-5, 5), random(-8, -2), random(-0.1, 0.1), powerupParticleShape);
   }
 }

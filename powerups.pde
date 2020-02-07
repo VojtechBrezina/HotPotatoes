@@ -81,15 +81,18 @@ private void addPowerupToPlayer(Powerup p){
 
 //define a powerup
 private abstract class Powerup{
+  private int maxTime;
   private int remainingTime;//some powerups have a timer
   private boolean active = false;
   public boolean dead(){return remainingTime <= 0;}
   
   private PShape shape;
+  public final color primaryColor;
   
-  protected Powerup(int time, PShape shape){
-    remainingTime = time;
+  protected Powerup(int time, PShape shape, color c){
+    maxTime = remainingTime = time;
     this.shape = shape;
+    primaryColor = c;
   }
   
   //always use with super.activate(); or it won't end
@@ -112,6 +115,7 @@ private abstract class Powerup{
   public boolean add(Powerup p){
     if(p.getClass() == getClass()){
       remainingTime += p.remainingTime;
+      maxTime += p.remainingTime;
       return true;
     }
     return false;
@@ -124,6 +128,11 @@ private abstract class Powerup{
     strokeWeight(0.05);
     square(-0.45, -0.45, 0.9);//this should make it look better on the potatoes
     shape(shape);
+    fill(BACKGROUND_COLOR, 150);
+    noStroke();
+    clip(-0.5, -0.5, 1, 1);
+    arc(0, 0, sqrt(2), sqrt(2), 0, TWO_PI * (1 - float(remainingTime) / maxTime));
+    noClip();
     popStyle();
   }
   
@@ -133,7 +142,7 @@ private abstract class Powerup{
 //a simple powerup that adds one life and diappears
 private final class HealthPowerup extends Powerup{
   public HealthPowerup(){
-    super(0, healthPowerupShape);
+    super(0, healthPowerupShape, BONUS_HEALTH_FILL_COLOR);
   }
   
   public void activate(){
@@ -146,7 +155,7 @@ private final class HealthPowerup extends Powerup{
 //they don't add up the time, but they are upgraded for even greater damage
 private final class SpikesPowerup extends Powerup{
   public SpikesPowerup(){
-    super(800, spikesPowerupShape);//20 seconds
+    super(800, spikesPowerupShape, SPIKE_FILL_COLOR);//20 seconds
   }
   
   public void activate(){
@@ -165,7 +174,7 @@ private final class SpikesPowerup extends Powerup{
 
 private final class WeakGravityPowerup extends Powerup{
   public WeakGravityPowerup(){
-    super(600, weakGravityPowerupShape);//15 seconds
+    super(600, weakGravityPowerupShape, GRAVITY_ARROW_FILL_COLOR);//15 seconds
   }
   
   public void activate(){
@@ -180,7 +189,7 @@ private final class WeakGravityPowerup extends Powerup{
 
 private class IncreaseWidthPowerup extends Powerup{
   public IncreaseWidthPowerup(){
-    super(400, increaseWidthPowerupShape);//10seconds
+    super(400, increaseWidthPowerupShape, PLAYER_EXTENDED_FILL_COLOR);//10seconds
   }
   
   public void activate(){
