@@ -2,7 +2,7 @@
 
 private Skill[] skills;
 
-private PShape shockWaveSkillShape;
+private PShape shockWaveSkillShape, stealSkillShape;
 
 private void prepareSkills(){
   PShape child;
@@ -20,12 +20,24 @@ private void prepareSkills(){
   child.setFill(SKILL_FILL_COLOR);
   shockWaveSkillShape.addChild(child);
   
+  stealSkillShape = createShape();
+  
   //the rest
   skills = new Skill[]{
     new Skill(800, shockWaveSkillShape, new SkillCaster(){
       public void cast(){
         for(Potato p : potatoes)
           p.dealRelativeDamage(0.5);
+      }
+    }),
+    
+    new Skill(700, stealSkillShape, new SkillCaster(){
+      public void cast(){
+        for(Potato p : potatoes){
+          Powerup pw = p.grabPowerup();
+          if(pw != null)
+            addPowerupToPlayer(pw);
+        }
       }
     })
   };
@@ -44,12 +56,14 @@ private void resetSkills(){
 }
 
 private void displaySkills(){
+  int x = 0;
   for(int i = skills.length - 1; i >= 0; i--){
     pushMatrix();
-    translate(SCREEN_SIZE - GUI_PADDING - ((i + 0.5)* POWERUPS_SIZE), GUI_LINE_HEIGHT * 3.5);
+    translate(SCREEN_SIZE - (x + 1) * GUI_PADDING - ((x + 0.5)* POWERUPS_SIZE), GUI_LINE_HEIGHT * 3.5);
     scale(POWERUPS_SIZE);
     skills[i].display();
     popMatrix();
+    x++;
   }
 }
 
@@ -96,12 +110,12 @@ private final class Skill{
     fill(SKILL_FILL_COLOR);
     square(-0.5, -0.5, 1);
     shape(shape);
-    fill(BACKGROUND_COLOR, 200);
-    noStroke();
-    arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (float(cooldownLeft) / cooldown));
     noFill();
     stroke(SKILL_STROKE_COLOR);//some skills are drawing on top of the border...
     square(-0.5, -0.5, 1);
+    fill(BACKGROUND_COLOR, 200);
+    noStroke();
+    arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (float(cooldownLeft) / cooldown));
     noClip();
     popStyle();
   }

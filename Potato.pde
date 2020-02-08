@@ -17,10 +17,10 @@ private int potatoStartingSpeed(){
 
 private final class Potato{
   //the box2D body
-  Body body;
+  private Body body;
   
   //it might have a powerup on it
-  Powerup powerup;
+  private Powerup powerup;
   
   //lives remaining until it breaks
   private int lives; public int lives(){return lives;}//just to be clean about the acces
@@ -85,6 +85,12 @@ private final class Potato{
   
   public void dealRelativeDamage(float fraction){
     dealDamage(max(1, int(startLives * fraction)));//at least 1
+  }
+  
+  public Powerup grabPowerup(){//just for the steal skill rn
+    Powerup p = powerup;
+    powerup = null;
+    return p;
   }
   
   public boolean dead(){

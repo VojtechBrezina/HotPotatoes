@@ -78,8 +78,10 @@ private void addPowerupToPlayer(Powerup p){
       return;
   }
   //if not, we have to add it
-  playerPowerups.add(p);
   p.activate();
+  
+  if(!p.dead())//health and things like it
+    playerPowerups.add(p);
 }
 
 //define a powerup
