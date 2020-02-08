@@ -96,6 +96,7 @@ private void gameOver(){
   
   if(playerWidth == PLAYER_INCREASED_WIDTH)
     destroyPlayerExtension();
+  playerWidth = PLAYER_WIDTH;//it was destroing the extensions of a dead player in newGame()
   for(int i = 0; i < 60; i++)
     particles.add(new PlayerParticle());
     
