@@ -15,8 +15,18 @@ private void prepareSkills(){
       }
       
       public void display(){
-        fill(255);
-        rect(-0.5, -0.5, 1, 1);
+        pushStyle();
+        strokeWeight(0.02);
+        clip(-0.5, -0.5, 1, 1);
+        fill(#00CAFF);
+        square(-0.5, -0.5, 1);
+        stroke(#777777);
+        fill(#FFFFFF);
+        circle(0, 0.5, 1.5);
+        fill(#00CAFF);
+        circle(0, 0.5, 1.2);
+        noClip();
+        popStyle();
       }
     }
   };
@@ -40,7 +50,7 @@ private void displaySkills(){
     translate(SCREEN_SIZE - GUI_PADDING - ((i + 0.5)* POWERUPS_SIZE), GUI_LINE_HEIGHT * 3.5);
     scale(POWERUPS_SIZE);
     skills[i].display();
-    fill(BACKGROUND_COLOR, 150);
+    fill(BACKGROUND_COLOR, 200);
     noStroke();
     clip(-0.5, -0.5, 1, 1);
     arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (float(skillRemainingCooldown(skills[i])) / skills[i].getMaximumCooldown()));

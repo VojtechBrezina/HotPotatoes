@@ -131,7 +131,7 @@ private abstract class Powerup{
     strokeWeight(0.05);
     square(-0.45, -0.45, 0.9);//this should make it look better on the potatoes
     shape(shape);
-    fill(BACKGROUND_COLOR, 150);
+    fill(BACKGROUND_COLOR, 200);
     noStroke();
     clip(-0.5, -0.5, 1, 1);
     arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (1 - float(remainingTime) / maxTime));
