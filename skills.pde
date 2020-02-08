@@ -20,7 +20,44 @@ private void prepareSkills(){
   child.setFill(SKILL_FILL_COLOR);
   shockWaveSkillShape.addChild(child);
   
-  stealSkillShape = createShape();
+  stealSkillShape = createShape(GROUP);
+  child = createShape(RECT, -0.03, -0.43, 0.23, 0.13);
+  child.setStrokeWeight(0.02);
+  child.setStroke(STEAL_ICON_STROKE_COLOR);
+  child.setFill(STEAL_ICON_FILL_COLOR);
+  stealSkillShape.addChild(child);
+  child = createShape(RECT, 0.03, 0.43, -0.23, -0.13);
+  child.setStrokeWeight(0.02);
+  child.setStroke(STEAL_ICON_STROKE_COLOR);
+  child.setFill(STEAL_ICON_FILL_COLOR);
+  stealSkillShape.addChild(child);
+  child = createShape(ARC, 0, -0.18, 0.5, 0.5, HALF_PI, TWO_PI - HALF_PI);
+  child.setStrokeWeight(0.02);
+  child.setStroke(STEAL_ICON_STROKE_COLOR);
+  child.setFill(STEAL_ICON_FILL_COLOR);
+  stealSkillShape.addChild(child);
+  child = createShape(ARC, 0, -0.18, 0.25, 0.25, HALF_PI, TWO_PI - HALF_PI);
+  child.setStrokeWeight(0.02);
+  child.setStroke(STEAL_ICON_STROKE_COLOR);
+  child.setFill(SKILL_FILL_COLOR);
+  stealSkillShape.addChild(child);
+  child = createShape(ARC, 0, 0.18, 0.5, 0.5, - HALF_PI, HALF_PI);
+  child.setStrokeWeight(0.02);
+  child.setStroke(STEAL_ICON_STROKE_COLOR);
+  child.setFill(STEAL_ICON_FILL_COLOR);
+  stealSkillShape.addChild(child);
+  child = createShape(ARC, 0, 0.18, 0.25, 0.25, - HALF_PI, HALF_PI);
+  child.setStrokeWeight(0.02);
+  child.setStroke(STEAL_ICON_STROKE_COLOR);
+  child.setFill(SKILL_FILL_COLOR);
+  stealSkillShape.addChild(child);
+  stealSkillShape.scale(1, 0.6);
+  child = createShape(RECT, -0.05, -0.6, 0.1, 1.2);
+  child.setStrokeWeight(0.02);
+  child.setStroke(STEAL_ICON_STROKE_COLOR);
+  child.setFill(STEAL_ICON_FILL_COLOR);
+  stealSkillShape.addChild(child);
+  
   
   //the rest
   skills = new Skill[]{

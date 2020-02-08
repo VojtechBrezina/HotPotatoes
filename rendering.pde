@@ -27,6 +27,9 @@ private static final color SKILL_STROKE_COLOR = #4FBF06;
 private static final color SHOCK_WAVE_FILL_COLOR = #FFFFFF;
 private static final color SHOCK_WAVE_STROKE_COLOR = #AAAAAA;
 
+private static final color STEAL_ICON_FILL_COLOR = #FFEB0D;
+private static final color STEAL_ICON_STROKE_COLOR = #B2A61F;
+
 private static final color BACKGROUND_COLOR = #D0DCF0;
 private static final color GUI_COLOR = #0A0467;
 private static final color GUI_HOVER_COLOR = #03CEFF;
