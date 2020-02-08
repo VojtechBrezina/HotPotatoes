@@ -13,19 +13,15 @@ private ArrayList<Potato> potatoes = new ArrayList<Potato>();
 private int potatoSpawnTimer;
 
 private boolean paused = false;
+private boolean gameOver;
 
 //amount of spikes powerups
 private int spikesLevel;
 
 //reset everything so it's ready for a new game
 private void newGame(){
+  gameOver = false;
   score = 0;
-  
-  for(Potato p : potatoes)
-    p.destroy(false);//never just .clear() a list full of box2d bodies, that could get very messy
-  potatoes.clear();
-  
-  playerPowerups.clear();
   
   playerLives = START_PLAYER_LIVES;//adjustable in the player tab
 
@@ -45,6 +41,14 @@ private void newGame(){
 //one tick of the game
 private void gameTick(){
   if(paused)//just keep it inside
+    return;
+  
+  for(Particle p : particles)
+    p.tick();
+  for(int i = particles.size() - 1; i >= 0; i--)
+    if(particles.get(i).dead())
+      particles.remove(i);
+  if(gameOver)//on the gameOver screen, only particles are alive
     return;
   
   handlePlayer();
@@ -78,24 +82,27 @@ private void gameTick(){
     potatoes.add(new Potato());
   }else
     potatoSpawnTimer--;
-  
-  for(Particle p : particles)
-    p.tick();
-  for(int i = particles.size() - 1; i >= 0; i--)
-    if(particles.get(i).dead())
-      particles.remove(i);
     
   highScore = max(highScore, score);
   
- if(playerLives <= 0)
+  if(playerLives <= 0)
    gameOver();
 }
 
 private void gameOver(){
+  playerLives = 0;
   saveStrings("data.txt", new String[]{String.valueOf(highScore)});
+  
   if(playerWidth == PLAYER_INCREASED_WIDTH)
     destroyPlayerExtension();
   for(int i = 0; i < 60; i++)
     particles.add(new PlayerParticle());
-  newGame();//temporary
+    
+  for(Potato p : potatoes)
+    p.destroy(false);//never just .clear() a list full of box2d bodies, that could get very messy
+  potatoes.clear();
+  
+  playerPowerups.clear();
+  
+  gameOver = true;
 }

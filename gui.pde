@@ -73,6 +73,11 @@ public void mouseMoved(){
 }
 
 public void mousePressed(){
+  if(gameOver){//priority, over the rest of the gui
+    newGame();
+    return;
+  }
+  
   //pause button
   if(mouseInsidePauseButton()){
     paused = !paused;

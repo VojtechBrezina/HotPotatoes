@@ -41,9 +41,15 @@ private void renderFrame(){
   pushMatrix();
   translate(0, GUI_HEIGHT);
   for(Potato p : potatoes)
-    p.display();
-  
-  displayPlayer();
+      p.display();
+  if(gameOver){
+    textAlign(CENTER);
+    textSize(GUI_LINE_HEIGHT);//something
+    fill(GUI_COLOR);
+    text("Game Over (click)", SCREEN_SIZE / 2, SCREEN_SIZE / 2);
+  }else{//no player or potatoes
+    displayPlayer();
+  }
   
   for(Particle p : particles)
     p.display();
