@@ -60,6 +60,8 @@ private void displaySkills(){
 }
 
 private void checkForSkillCasts(){
+  if(paused || gameOver)
+    return;
   if(key - '1' > skills.length - 1 || key - '1' < 0)
     return;
   Skill s = skills[key - '1'];

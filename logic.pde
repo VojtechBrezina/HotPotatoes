@@ -35,8 +35,6 @@ private void newGame(){
   
   makePlayerBody(PLAYER_WIDTH);//in the player tab
   
-  resetSkills();
-  
   lastTick = millis();
 }
 
@@ -106,6 +104,8 @@ private void gameOver(){
   potatoes.clear();
   
   playerPowerups.clear();
+  
+  resetSkills();
   
   gameOver = true;
 }
