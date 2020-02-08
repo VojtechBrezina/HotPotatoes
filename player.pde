@@ -52,7 +52,7 @@ private void makePlayerBody(float newWidth){
 }
 
 private void destroyPlayerExtension(){
-  for(int i = 0; i < 20; i++)
+  for(int i = 0; i < 50; i++)
     particles.add(new PlayerExtensionParticle());
 }
 

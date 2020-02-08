@@ -20,7 +20,6 @@ private int spikesLevel;
 //reset everything so it's ready for a new game
 private void newGame(){
   score = 0;
-  saveStrings("data.txt", new String[]{String.valueOf(highScore)});
   
   for(Potato p : potatoes)
     p.destroy(false);//never just .clear() a list full of box2d bodies, that could get very messy
@@ -89,5 +88,14 @@ private void gameTick(){
   highScore = max(highScore, score);
   
  if(playerLives <= 0)
-    newGame();
+   gameOver();
+}
+
+private void gameOver(){
+  saveStrings("data.txt", new String[]{String.valueOf(highScore)});
+  if(playerWidth == PLAYER_INCREASED_WIDTH)
+    destroyPlayerExtension();
+  for(int i = 0; i < 60; i++)
+    particles.add(new PlayerParticle());
+  newGame();//temporary
 }
