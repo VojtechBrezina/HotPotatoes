@@ -2,6 +2,9 @@
 //!important the activation has to be done before the fist tick, co the powerups
 //           that should disappear instantly won't flash in the inventory
 
+//sqrt() is expensive...
+private static final float SQRT_2 = sqrt(2);
+
 ArrayList<Powerup> playerPowerups = new ArrayList<Powerup>();
 
 private PShape healthPowerupShape, spikesPowerupShape, weakGravityPowerupShape, increaseWidthPowerupShape;
@@ -42,13 +45,13 @@ private void preparePowerups(){
   increaseWidthPowerupShape = createShape(GROUP);
   child = createShape(RECT, -0.3, 0.1, 0.6, 0.2);
   child.setStrokeWeight(0.05);
-  child.setStroke(PLAYER_STROKE_COLOR);
-  child.setFill(PLAYER_FILL_COLOR);
+  child.setStroke(PLAYER_EXTENDED_STROKE_COLOR);
+  child.setFill(PLAYER_EXTENDED_FILL_COLOR);
   increaseWidthPowerupShape.addChild(child);
   child = createShape(RECT, -0.15, 0.1, 0.3, 0.2);
   child.setStrokeWeight(0.05);
-  child.setStroke(PLAYER_EXTENDED_STROKE_COLOR);
-  child.setFill(PLAYER_EXTENDED_FILL_COLOR);
+  child.setStroke(PLAYER_STROKE_COLOR);
+  child.setFill(PLAYER_FILL_COLOR);
   increaseWidthPowerupShape.addChild(child);
 }
 
@@ -131,7 +134,7 @@ private abstract class Powerup{
     fill(BACKGROUND_COLOR, 150);
     noStroke();
     clip(-0.5, -0.5, 1, 1);
-    arc(0, 0, sqrt(2), sqrt(2), 0, TWO_PI * (1 - float(remainingTime) / maxTime));
+    arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (1 - float(remainingTime) / maxTime));
     noClip();
     popStyle();
   }

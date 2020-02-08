@@ -25,6 +25,9 @@ private void makePlayerBody(float newWidth){
   if(playerBody != null){
     box2d.destroyBody(playerBody);
     playerX = box2d.getBodyPixelCoord(playerBody).x;
+    
+    if(playerWidth != newWidth && playerWidth == PLAYER_INCREASED_WIDTH)
+      destroyPlayerExtension();
   }
   
   playerWidth = newWidth;
@@ -48,6 +51,11 @@ private void makePlayerBody(float newWidth){
   playerBody.setUserData("Player");
 }
 
+private void destroyPlayerExtension(){
+  for(int i = 0; i < 20; i++)
+    particles.add(new PlayerExtensionParticle());
+}
+
 //do one tick with the player
 private void handlePlayer(){
   //player moves with the mouse, but leaves a small gap between himself and the edge
@@ -64,11 +72,11 @@ private void displayPlayer(){
   
   pushStyle();//the rectMode won't necesarilly be used for other things and it might get everything messy
   rectMode(CENTER);
-  stroke(PLAYER_STROKE_COLOR);
-  fill(PLAYER_FILL_COLOR);
-  rect(playerX, PLAYER_Y, playerWidth, PLAYER_HEIGHT);
   stroke(PLAYER_EXTENDED_STROKE_COLOR);
   fill(PLAYER_EXTENDED_FILL_COLOR);
+  rect(playerX, PLAYER_Y, playerWidth, PLAYER_HEIGHT);
+  stroke(PLAYER_STROKE_COLOR);
+  fill(PLAYER_FILL_COLOR);
   rect(playerX, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
   popStyle();
   

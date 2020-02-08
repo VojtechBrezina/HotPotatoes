@@ -1,10 +1,10 @@
 //things for drawing
 
 //colors should be all in one place
-private static final color PLAYER_FILL_COLOR = #73FC9D;
-private static final color PLAYER_STROKE_COLOR = #02B93A;
-private static final color PLAYER_EXTENDED_FILL_COLOR = #739FFC;
-private static final color PLAYER_EXTENDED_STROKE_COLOR = #003BB7;
+private static final color PLAYER_FILL_COLOR = #739FFC;
+private static final color PLAYER_STROKE_COLOR = #003BB7;
+private static final color PLAYER_EXTENDED_FILL_COLOR = #73FC9D;
+private static final color PLAYER_EXTENDED_STROKE_COLOR = #02B93A;
 
 private static final color POTATO_FILL_COLOR = #BCB308;
 private static final color POTATO_STROKE_COLOR = #8E8701;
