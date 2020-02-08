@@ -83,6 +83,10 @@ private final class Potato{
     score += damage;
   }
   
+  public void dealRelativeDamage(float fraction){
+    dealDamage(max(1, int(startLives * fraction)));//at least 1
+  }
+  
   public boolean dead(){
     return lives <= 0;
   }

@@ -11,7 +11,7 @@ private void prepareSkills(){
       
       public void cast(){
         for(Potato p : potatoes)
-          p.dealDamage(1);
+          p.dealRelativeDamage(0.5);
       }
       
       public void display(){
@@ -60,6 +60,8 @@ private void displaySkills(){
 }
 
 private void checkForSkillCasts(){
+  if(key - '1' > skills.length - 1 || key - '1' < 0)
+    return;
   Skill s = skills[key - '1'];
   if(skillRemainingCooldown(s) == 0){
     skillRemainingCooldown(s, s.getMaximumCooldown());
