@@ -21,6 +21,12 @@ private static final color SPIKE_STROKE_COLOR = #5A6781;
 private static final color GRAVITY_ARROW_FILL_COLOR = #28F779;
 private static final color GRAVITY_ARROW_STROKE_COLOR = #03A241;
 
+private static final color SKILL_FILL_COLOR = #65FF00;
+private static final color SKILL_STROKE_COLOR = #4FBF06;
+
+private static final color SHOCK_WAVE_FILL_COLOR = #FFFFFF;
+private static final color SHOCK_WAVE_STROKE_COLOR = #AAAAAA;
+
 private static final color BACKGROUND_COLOR = #D0DCF0;
 private static final color GUI_COLOR = #0A0467;
 private static final color GUI_HOVER_COLOR = #03CEFF;

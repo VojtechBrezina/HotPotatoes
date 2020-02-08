@@ -15,14 +15,14 @@ private void preparePowerups(){
   healthPowerupShape.beginShape();
   healthPowerupShape.stroke(BONUS_HEALTH_STROKE_COLOR);
   healthPowerupShape.fill(BONUS_HEALTH_FILL_COLOR);
-  healthPowerupShape.strokeWeight(0.05);
+  healthPowerupShape.strokeWeight(0.02);
   healthPowerupShape.vertex(-0.125, -0.375);healthPowerupShape.vertex(0.125, -0.375);healthPowerupShape.vertex(0.125, -0.125);healthPowerupShape.vertex(0.375, -0.125);
   healthPowerupShape.vertex(0.375, 0.125);healthPowerupShape.vertex(0.125, 0.125);healthPowerupShape.vertex(0.125, 0.375);healthPowerupShape.vertex(-0.125, 0.375);
   healthPowerupShape.vertex(-0.125, 0.125);healthPowerupShape.vertex(-0.375, 0.125);healthPowerupShape.vertex(-0.375, -0.125);healthPowerupShape.vertex(-0.125, -0.125);
   healthPowerupShape.endShape(CLOSE);
   
   spikesPowerupShape = createShape(TRIANGLE, -0.3, 0.3, 0, -0.3, 0.3, 0.3);
-  spikesPowerupShape.setStrokeWeight(0.05);
+  spikesPowerupShape.setStrokeWeight(0.02);
   spikesPowerupShape.setStroke(SPIKE_STROKE_COLOR);
   spikesPowerupShape.setFill(SPIKE_FILL_COLOR);
   
@@ -44,12 +44,12 @@ private void preparePowerups(){
   
   increaseWidthPowerupShape = createShape(GROUP);
   child = createShape(RECT, -0.3, 0.1, 0.6, 0.2);
-  child.setStrokeWeight(0.05);
+  child.setStrokeWeight(0.02);
   child.setStroke(PLAYER_EXTENDED_STROKE_COLOR);
   child.setFill(PLAYER_EXTENDED_FILL_COLOR);
   increaseWidthPowerupShape.addChild(child);
   child = createShape(RECT, -0.15, 0.1, 0.3, 0.2);
-  child.setStrokeWeight(0.05);
+  child.setStrokeWeight(0.02);
   child.setStroke(PLAYER_STROKE_COLOR);
   child.setFill(PLAYER_FILL_COLOR);
   increaseWidthPowerupShape.addChild(child);
@@ -128,12 +128,12 @@ private abstract class Powerup{
     fill(POWERUP_FILL_COLOR);
     stroke(POWERUP_STROKE_COLOR);
     pushStyle();
-    strokeWeight(0.05);
+    clip(-0.5, -0.5, 1, 1);
+    strokeWeight(0.02);
     square(-0.45, -0.45, 0.9);//this should make it look better on the potatoes
     shape(shape);
     fill(BACKGROUND_COLOR, 200);
     noStroke();
-    clip(-0.5, -0.5, 1, 1);
     arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (1 - float(remainingTime) / maxTime));
     noClip();
     popStyle();

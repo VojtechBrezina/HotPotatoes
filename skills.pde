@@ -2,33 +2,32 @@
 
 private Skill[] skills;
 
+private PShape shockWaveSkillShape;
+
 private void prepareSkills(){
+  PShape child;
+  
+  //shapes
+  shockWaveSkillShape = createShape(GROUP);
+  child = createShape(ELLIPSE, 0, 0.5, 1.5, 1.5);
+  child.setStrokeWeight(0.02);
+  child.setStroke(SHOCK_WAVE_STROKE_COLOR);
+  child.setFill(SHOCK_WAVE_FILL_COLOR);
+  shockWaveSkillShape.addChild(child);
+  child = createShape(ELLIPSE, 0, 0.5, 1.5, 1.2);
+  child.setStrokeWeight(0.02);
+  child.setStroke(SHOCK_WAVE_STROKE_COLOR);
+  child.setFill(SKILL_FILL_COLOR);
+  shockWaveSkillShape.addChild(child);
+  
+  //the rest
   skills = new Skill[]{
-    new Skill(){
-      public int getMaximumCooldown(){// Shock Wave
-        return 800; //20seconds
-      }
-      
+    new Skill(800, shockWaveSkillShape, new SkillCaster(){
       public void cast(){
         for(Potato p : potatoes)
           p.dealRelativeDamage(0.5);
       }
-      
-      public void display(){
-        pushStyle();
-        strokeWeight(0.02);
-        clip(-0.5, -0.5, 1, 1);
-        fill(#00CAFF);
-        square(-0.5, -0.5, 1);
-        stroke(#777777);
-        fill(#FFFFFF);
-        circle(0, 0.5, 1.5);
-        fill(#00CAFF);
-        circle(0, 0.5, 1.2);
-        noClip();
-        popStyle();
-      }
-    }
+    })
   };
   
   resetSkills();
@@ -36,12 +35,12 @@ private void prepareSkills(){
 
 private void tickSkills(){
   for(Skill s : skills)
-    skillRemainingCooldown(s, max(skillRemainingCooldown(s) - 1, 0));
+    s.tick();
 }
 
 private void resetSkills(){
   for(Skill s : skills)
-    skillRemainingCooldown(s, 0);
+    s.reset();
 }
 
 private void displaySkills(){
@@ -50,11 +49,6 @@ private void displaySkills(){
     translate(SCREEN_SIZE - GUI_PADDING - ((i + 0.5)* POWERUPS_SIZE), GUI_LINE_HEIGHT * 3.5);
     scale(POWERUPS_SIZE);
     skills[i].display();
-    fill(BACKGROUND_COLOR, 200);
-    noStroke();
-    clip(-0.5, -0.5, 1, 1);
-    arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (float(skillRemainingCooldown(skills[i])) / skills[i].getMaximumCooldown()));
-    noClip();
     popMatrix();
   }
 }
@@ -64,22 +58,55 @@ private void checkForSkillCasts(){
     return;
   if(key - '1' > skills.length - 1 || key - '1' < 0)
     return;
-  Skill s = skills[key - '1'];
-  if(skillRemainingCooldown(s) == 0){
-    skillRemainingCooldown(s, s.getMaximumCooldown());
-    s.cast();
+  skills[key - '1'].cast();
+}
+
+private final class Skill{
+  private int cooldownLeft;
+  private final int cooldown;
+  private SkillCaster caster;
+  private PShape shape;
+  
+  public Skill(int cd, PShape s, SkillCaster c){
+    cooldown = cd;
+    caster = c;
+    shape = s;
+  }
+  
+  public void reset(){
+    cooldownLeft = 0;
+  }
+  
+  public void cast(){
+    if(cooldownLeft == 0){
+      caster.cast();
+      cooldownLeft = cooldown;
+    }
+  }
+  
+  public void tick(){
+    cooldownLeft = max(0, cooldownLeft - 1);
+  }
+  
+  public void display(){
+    pushStyle();
+    strokeWeight(0.02);
+    clip(-0.5, -0.5, 1, 1);
+    noStroke();
+    fill(SKILL_FILL_COLOR);
+    square(-0.5, -0.5, 1);
+    shape(shape);
+    fill(BACKGROUND_COLOR, 200);
+    noStroke();
+    arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (float(cooldownLeft) / cooldown));
+    noFill();
+    stroke(SKILL_STROKE_COLOR);//some skills are drawing on top of the border...
+    square(-0.5, -0.5, 1);
+    noClip();
+    popStyle();
   }
 }
 
-//no need for instances
-private interface Skill{
-  public Map<Skill, Integer> remainingCooldown = new WeakHashMap<Skill, Integer>();
-  
-  public int getMaximumCooldown();
+private interface SkillCaster{//let's do it the "proper" way
   public void cast();
-  public void display();
 }
-
-//look away
-private int skillRemainingCooldown(Skill s){return Skill.remainingCooldown.get(s);}
-private void  skillRemainingCooldown(Skill s, int v){Skill.remainingCooldown.put(s, v);}
