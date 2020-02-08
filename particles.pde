@@ -3,7 +3,7 @@
 private ArrayList<Particle> particles = new ArrayList<Particle>();
 
 
-private PShape potatoParticleShape, powerupParticleShape, playerExtensionParticleShape, PlayerParticleShape;
+private PShape potatoParticleShape, powerupParticleShape, playerExtensionParticleShape, playerParticleShape;
 private void prepareParticles(){
   potatoParticleShape = createShape();
   potatoParticleShape.beginShape();
@@ -31,6 +31,15 @@ private void prepareParticles(){
   playerExtensionParticleShape.vertex(PLAYER_HEIGHT * 0.3, PLAYER_HEIGHT * 0.2);
   playerExtensionParticleShape.vertex(0, PLAYER_HEIGHT * -0.3);
   playerExtensionParticleShape.endShape(CLOSE);
+  
+  playerParticleShape = createShape();
+  playerParticleShape.beginShape();
+  playerParticleShape.fill(PLAYER_FILL_COLOR);
+  playerParticleShape.noStroke();
+  playerParticleShape.vertex(-PLAYER_HEIGHT * 0.3, PLAYER_HEIGHT * 0.2);
+  playerParticleShape.vertex(PLAYER_HEIGHT * 0.3, PLAYER_HEIGHT * 0.2);
+  playerParticleShape.vertex(0, PLAYER_HEIGHT * -0.3);
+  playerParticleShape.endShape(CLOSE);
 }
 
 
@@ -80,6 +89,15 @@ private final class PlayerExtensionParticle extends Particle{
     // sory, but Java is like: "THE CONSTRUCTOR CALL MUST BE THE FIRST STATEMENT IN THE CONSTRUCTOR !!!"
     //... and I am too lazy to do it any other way...
     super(box2d.getBodyPixelCoord(playerBody).x + (random(2) < 1 ? -1 : 1) * random(PLAYER_WIDTH / 2, PLAYER_INCREASED_WIDTH / 2), PLAYER_Y + random(-PLAYER_HEIGHT / 2, PLAYER_HEIGHT / 2), 
-      random(TWO_PI), random(-3, 3), random(2, -2), random(-0.1, 0.1), playerExtensionParticleShape);
+      random(TWO_PI), random(-3, 3), random(2, -2), random(-0.8, 0), playerExtensionParticleShape);
+  }
+}
+
+private final class PlayerParticle extends Particle{
+  public PlayerParticle(){
+    // sory, but Java is like: "THE CONSTRUCTOR CALL MUST BE THE FIRST STATEMENT IN THE CONSTRUCTOR !!!"
+    //... and I am too lazy to do it any other way...
+    super(box2d.getBodyPixelCoord(playerBody).x + random(0, PLAYER_WIDTH / 2), PLAYER_Y + random(-PLAYER_HEIGHT / 2, PLAYER_HEIGHT / 2), 
+      random(TWO_PI), random(-3, 3), random(2, -2), random(-0.8, 0), playerExtensionParticleShape);
   }
 }
