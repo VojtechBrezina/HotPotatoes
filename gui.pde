@@ -1,7 +1,7 @@
 //gui things
                   //-vvv- needs to be int, because it's used int size()  
 private static final int GUI_LINE_HEIGHT = int(SCREEN_SIZE * 0.08);
-private static final int GUI_LINE_COUNT = 3;
+private static final int GUI_LINE_COUNT = 4;
 private static final int GUI_HEIGHT = GUI_LINE_HEIGHT * GUI_LINE_COUNT;  //Space required for score and other things
 private static final float GUI_PADDING = GUI_LINE_HEIGHT * 0.15;
 
@@ -29,6 +29,8 @@ private void displayGUI(){
   text("High:", GUI_PADDING, GUI_LINE_HEIGHT * 2 - GUI_PADDING);
   text("Lives: ", SCREEN_SIZE / 2 + GUI_PADDING, GUI_LINE_HEIGHT * 2 - GUI_PADDING);
   text("Powerups:", GUI_PADDING, GUI_LINE_HEIGHT * 3 - GUI_PADDING);
+  text("Skills:", GUI_PADDING, GUI_LINE_HEIGHT * 4 - GUI_PADDING);
+  
   textAlign(RIGHT);
   text(score, SCREEN_SIZE / 2 - GUI_PADDING, GUI_LINE_HEIGHT - GUI_PADDING);
   text(highScore, SCREEN_SIZE / 2 - GUI_PADDING, GUI_LINE_HEIGHT * 2 - GUI_PADDING);
@@ -58,6 +60,9 @@ private void displayGUI(){
     rect(0.6, 0.2, 0.2, 0.6);
   }
   popMatrix();
+  
+  //skills
+  displaySkills();
 }
 
 private boolean mouseInsidePauseButton(){
@@ -94,6 +99,10 @@ public void keyPressed(){
         paused = !paused;
         pauseKeyPressed = true;
       }
+      break;
+    default:
+      checkForSkillCasts();
+      break;
   }
 }
 
@@ -101,5 +110,6 @@ public void keyReleased(){
   switch(key){
     case 'p':
       pauseKeyPressed = false;
+      break;
   }
 }

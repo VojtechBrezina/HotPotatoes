@@ -67,7 +67,10 @@ private final class Potato{
   }
   
   public void handlePlayerCollision(){
-    int damage = min(lives, 1 + spikesLevel);
+    dealDamage(min(lives, 1 + spikesLevel));
+  }
+  
+  public void dealDamage(int damage){
     Vec2 pos = box2d.getBodyPixelCoord(body);
     pos.addLocal(random(-POTATO_RADIUS , POTATO_RADIUS), random(-POTATO_RADIUS , POTATO_RADIUS));
     for(int i = 0; i < 3 * damage; i++){//the more damage, the more particles :)

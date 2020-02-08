@@ -6,6 +6,9 @@ import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 private static final int SCREEN_SIZE = 700; //The size of the gameScreen
 
 private static final int TICK_DELAY = 25; //40tps
@@ -24,6 +27,7 @@ public void setup(){
   initPhysics();
   prepareParticles();
   preparePowerups();
+  prepareSkills();
   newGame();
   lastFrame = millis();
 }

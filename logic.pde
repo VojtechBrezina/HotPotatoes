@@ -35,6 +35,8 @@ private void newGame(){
   
   makePlayerBody(PLAYER_WIDTH);//in the player tab
   
+  resetSkills();
+  
   lastTick = millis();
 }
 
@@ -51,6 +53,7 @@ private void gameTick(){
   if(gameOver)//on the gameOver screen, only particles are alive
     return;
   
+  tickSkills();
   handlePlayer();
   box2d.step();
   
