@@ -2,9 +2,6 @@
 //!important the activation has to be done before the fist tick, co the powerups
 //           that should disappear instantly won't flash in the inventory
 
-//sqrt() is expensive...
-private static final float SQRT_2 = sqrt(2);
-
 ArrayList<Powerup> playerPowerups = new ArrayList<Powerup>();
 
 private PShape healthPowerupShape, spikesPowerupShape, weakGravityPowerupShape, increaseWidthPowerupShape;

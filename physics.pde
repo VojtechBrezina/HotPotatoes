@@ -3,11 +3,11 @@
 private static final float DEFAULT_GRAVITY = -2 * 1000.0 / TICK_DELAY;
 private static final float WEAK_GRAVITY = -0.5 * 1000.0 / TICK_DELAY;
 
-private Box2DProcessing box2d;
+private enum BodyTag{
+  PLAYER, SHOCK_WAVE
+}
 
-private CircleShape potatoShape;
-private FixtureDef potatoFixture;
-private BodyDef potatoBodyDef;
+private Box2DProcessing box2d;
 
 private Body leftWall, rightWall, topWall;
 
@@ -20,21 +20,6 @@ private void initPhysics(){
   
   definePotato();
   makeWalls();
-}
-
-//define the potato for reusing
-private void definePotato(){
-  potatoShape = new CircleShape();
-  potatoShape.setRadius(box2d.scalarPixelsToWorld(POTATO_RADIUS));
-  
-  potatoFixture = new FixtureDef();
-  potatoFixture.setShape(potatoShape);
-  potatoFixture.setDensity(1);
-  potatoFixture.setFriction(0);
-  potatoFixture.setRestitution(0.95);
-  
-  potatoBodyDef = new BodyDef();
-  potatoBodyDef.type = BodyType.DYNAMIC;
 }
 
 //prepare the invisible walls around the world

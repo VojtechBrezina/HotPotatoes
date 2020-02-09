@@ -45,11 +45,11 @@ private void makePlayerBody(float newWidth){
   playerBody = box2d.createBody(playerBodyDef);
   playerBody.createFixture(playerFixture);
   
-  playerBody.setUserData("Player");
+  playerBody.setUserData(BodyTag.PLAYER);
 }
 
 private void destroyPlayerExtension(){
-  if(playerWidth == PLAYER_INCREASED_WIDTH){
+  if(playerWidth > PLAYER_WIDTH){
     for(int i = 0; i < 50; i++)
       particles.add(new PlayerExtensionParticle());
     makePlayerBody(PLAYER_WIDTH);
@@ -65,7 +65,7 @@ private void destroyPlayer(){
 //do one tick with the player
 private void tickPlayer(){
   //player moves with the mouse, but leaves a small gap between himself and the edge
-  float tx = max(playerWidth / 2 + 10, min(SCREEN_SIZE - playerWidth / 2 - 10, mouseX));//target x
+  float tx = constrain(mouseX, playerWidth / 2 + 10, SCREEN_SIZE - playerWidth / 2 - 10);//target x
   playerBody.setTransform(box2d.coordPixelsToWorld(tx, PLAYER_Y), 0);
 }
 

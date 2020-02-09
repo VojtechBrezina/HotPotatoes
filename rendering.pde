@@ -49,6 +49,7 @@ private void renderFrame(){
   //the game is rendered under the gui and we'd like to have the coordinates adjusted
   pushMatrix();
   translate(0, GUI_HEIGHT);
+  clip(0, 0, SCREEN_SIZE, SCREEN_SIZE);
   displayPotatoes();
   if(gameOver){
     textAlign(CENTER);
@@ -58,6 +59,8 @@ private void renderFrame(){
   }else{//no player or potatoes
     displayPlayer();
   }
+  displaySkillEffects();
+  noClip();
   
   displayParticles();
   popMatrix();

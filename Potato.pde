@@ -7,10 +7,29 @@ private static final int POTATO_STARTING_SPEED = 30;
 private static final int POTATO_STARTING_SPEED_AT_1000_SCORE = 50;
 private static final float POTATO_POWERUP_SCALE = POTATO_RADIUS * cos(QUARTER_PI) * 2;
 
+private FixtureDef potatoFixture;
+private BodyDef potatoBodyDef;
+
+
 private void preparePotatoSpawner(){
   for(int i = 0; i < STARTING_POTATOES; i++)
     potatoes.add(new Potato());
   potatoSpawnTimer = potatoSpawnDelay();
+}
+
+//define the potato physics
+private void definePotato(){
+  CircleShape potatoShape = new CircleShape();
+  potatoShape.setRadius(box2d.scalarPixelsToWorld(POTATO_RADIUS));
+  
+  potatoFixture = new FixtureDef();
+  potatoFixture.setShape(potatoShape);
+  potatoFixture.setDensity(1);
+  potatoFixture.setFriction(0);
+  potatoFixture.setRestitution(0.95);
+  
+  potatoBodyDef = new BodyDef();
+  potatoBodyDef.type = BodyType.DYNAMIC;
 }
 
 private void tickPotatoes(){
@@ -62,6 +81,8 @@ private final class Potato{
   //lives remaining until it breaks
   private int lives; public int lives(){return lives;}//just to be clean about the acces
   private final int startLives;
+  
+  public boolean hitByShockWave = false;//just there for the skill code, so it's public
   
   public Potato(){
     float angle = random(TWO_PI);

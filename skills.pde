@@ -1,24 +1,15 @@
 //skills
+//each skill has its own tab bc the shapes are big and there are the effects and all
 
 private Skill[] skills;
 
-private PShape shockWaveSkillShape, stealSkillShape;
+private PShape stealSkillShape;
 
 private void prepareSkills(){
   PShape child;
   
-  //shapes
-  shockWaveSkillShape = createShape(GROUP);
-  child = createShape(ELLIPSE, 0, 0.5, 1.5, 1.5);
-  child.setStrokeWeight(0.02);
-  child.setStroke(SHOCK_WAVE_STROKE_COLOR);
-  child.setFill(SHOCK_WAVE_FILL_COLOR);
-  shockWaveSkillShape.addChild(child);
-  child = createShape(ELLIPSE, 0, 0.5, 1.5, 1.2);
-  child.setStrokeWeight(0.02);
-  child.setStroke(SHOCK_WAVE_STROKE_COLOR);
-  child.setFill(SKILL_FILL_COLOR);
-  shockWaveSkillShape.addChild(child);
+  //init
+  prepareShockWave();
   
   stealSkillShape = createShape(GROUP);
   child = createShape(RECT, -0.03, -0.43, 0.23, 0.13);
@@ -61,14 +52,9 @@ private void prepareSkills(){
   
   //the rest
   skills = new Skill[]{
-    new Skill(800, shockWaveSkillShape, new SkillCaster(){
-      public void cast(){
-        for(Potato p : potatoes)
-          p.dealRelativeDamage(0.5);
-      }
-    }),
+    shockWaveSkill,
     
-    new Skill(700, stealSkillShape, new SkillCaster(){
+    new Skill(700, stealSkillShape, new SkillListener(){
       public void cast(){
         for(Potato p : potatoes){
           Powerup pw = p.grabPowerup();
@@ -76,6 +62,9 @@ private void prepareSkills(){
             addPowerupToPlayer(pw);
         }
       }
+      public void tick(){}
+      public void displayEffects(){}
+      public void reset(){}
     })
   };
   
@@ -95,13 +84,14 @@ private void resetSkills(){
 private void displaySkills(){
   int x = 0;
   for(int i = skills.length - 1; i >= 0; i--){
-    pushMatrix();
-    translate(SCREEN_SIZE - (x + 1) * GUI_PADDING - ((x + 0.5)* POWERUPS_SIZE), GUI_LINE_HEIGHT * 3.5);
-    scale(POWERUPS_SIZE);
-    skills[i].display();
-    popMatrix();
+    skills[i].display(SCREEN_SIZE - (x + 1) * GUI_PADDING - ((x + 0.5)* POWERUPS_SIZE), GUI_LINE_HEIGHT * 3.5, POWERUPS_SIZE);
     x++;
   }
+}
+
+private void displaySkillEffects(){
+  for(Skill s : skills)
+    s.displayEffects();
 }
 
 private void checkForSkillCasts(){
@@ -115,31 +105,36 @@ private void checkForSkillCasts(){
 private final class Skill{
   private int cooldownLeft;
   private final int cooldown;
-  private SkillCaster caster;
+  private SkillListener listener;
   private PShape shape;
   
-  public Skill(int cd, PShape s, SkillCaster c){
+  public Skill(int cd, PShape s, SkillListener l){
     cooldown = cd;
-    caster = c;
+    listener = l;
     shape = s;
   }
   
   public void reset(){
     cooldownLeft = 0;
+    listener.reset();
   }
   
   public void cast(){
     if(cooldownLeft == 0){
-      caster.cast();
+      listener.cast();
       cooldownLeft = cooldown;
     }
   }
   
   public void tick(){
     cooldownLeft = max(0, cooldownLeft - 1);
+    listener.tick();
   }
   
-  public void display(){
+  public void display(float x, float y, float s){
+    pushMatrix();
+    translate(x, y);
+    scale(s);
     pushStyle();
     strokeWeight(0.02);
     clip(-0.5, -0.5, 1, 1);
@@ -155,9 +150,17 @@ private final class Skill{
     arc(0, 0, SQRT_2, SQRT_2, 0, TWO_PI * (float(cooldownLeft) / cooldown));
     noClip();
     popStyle();
+    popMatrix();
+  }
+  
+  public void displayEffects(){
+    listener.displayEffects();
   }
 }
 
-private interface SkillCaster{//let's do it the "proper" way
+private interface SkillListener{//let's do it the "proper" way
   public void cast();
+  public void tick();
+  public void displayEffects();
+  public void reset();
 }
