@@ -84,6 +84,18 @@ private void addPowerupToPlayer(Powerup p){
     playerPowerups.add(p);
 }
 
+private void tickPowerups(){
+  for(Powerup p : playerPowerups)
+    p.tick();
+  
+  for(int i = playerPowerups.size() - 1; i >= 0; i--){
+    Powerup p = playerPowerups.get(i);
+    if(p.dead()){
+      playerPowerups.remove(i);
+    }
+  }
+}
+
 //define a powerup
 private abstract class Powerup{
   private int maxTime;
@@ -203,6 +215,6 @@ private class IncreaseWidthPowerup extends Powerup{
   }
   
   public void deactivate(){
-    makePlayerBody(PLAYER_WIDTH);
+    destroyPlayerExtension();
   }
 }

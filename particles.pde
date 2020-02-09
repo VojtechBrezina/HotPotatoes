@@ -42,6 +42,19 @@ private void prepareParticles(){
   playerParticleShape.endShape(CLOSE);
 }
 
+private void displayParticles(){
+  for(Particle p : particles)
+    p.display();
+}
+
+private void tickParticles(){
+  for(Particle p : particles)
+    p.tick();
+  for(int i = particles.size() - 1; i >= 0; i--)
+    if(particles.get(i).dead())
+      particles.remove(i);
+}
+
 
 private abstract class Particle{
   protected float x, y, r;
@@ -89,7 +102,7 @@ private final class PlayerExtensionParticle extends Particle{
     // sory, but Java is like: "THE CONSTRUCTOR CALL MUST BE THE FIRST STATEMENT IN THE CONSTRUCTOR !!!"
     //... and I am too lazy to do it any other way...
     super(box2d.getBodyPixelCoord(playerBody).x + (random(2) < 1 ? -1 : 1) * random(PLAYER_WIDTH / 2, PLAYER_INCREASED_WIDTH / 2), PLAYER_Y + random(-PLAYER_HEIGHT / 2, PLAYER_HEIGHT / 2), 
-      random(TWO_PI), random(-5, 5), random(-8, -2), random(-0.1, 0.1), playerExtensionParticleShape);
+      random(TWO_PI), random(-5, 5), random(-5, 5), random(-0.1, 0.1), playerExtensionParticleShape);
   }
 }
 
@@ -98,6 +111,6 @@ private final class PlayerParticle extends Particle{
     // sory, but Java is like: "THE CONSTRUCTOR CALL MUST BE THE FIRST STATEMENT IN THE CONSTRUCTOR !!!"
     //... and I am too lazy to do it any other way...
     super(box2d.getBodyPixelCoord(playerBody).x + random(-PLAYER_WIDTH / 2, PLAYER_WIDTH / 2), PLAYER_Y + random(-PLAYER_HEIGHT / 2, PLAYER_HEIGHT / 2), 
-      random(TWO_PI), random(-5, 5), random(-8, -2), random(-0.1, 0.1), playerParticleShape);
+      random(TWO_PI), random(-5, 5), random(-5, 5), random(-0.1, 0.1), playerParticleShape);
   }
 }

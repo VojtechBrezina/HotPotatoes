@@ -7,6 +7,43 @@ private static final int POTATO_STARTING_SPEED = 30;
 private static final int POTATO_STARTING_SPEED_AT_1000_SCORE = 50;
 private static final float POTATO_POWERUP_SCALE = POTATO_RADIUS * cos(QUARTER_PI) * 2;
 
+private void preparePotatoSpawner(){
+  for(int i = 0; i < STARTING_POTATOES; i++)
+    potatoes.add(new Potato());
+  potatoSpawnTimer = potatoSpawnDelay();
+}
+
+private void tickPotatoes(){
+  for(int i = potatoes.size() - 1; i >= 0; i--){
+    Potato p = potatoes.get(i);
+    if(p.dead()){
+      p.destroy(true);
+      potatoes.remove(i);
+    }else if(p.outOfScreen()){
+      playerLives -= p.lives();
+      p.destroy(false);
+      potatoes.remove(i);
+    }
+  }
+                              // it'boring otherwise
+  if(potatoSpawnTimer == 0 || potatoes.size() == 0){
+    potatoSpawnTimer = potatoSpawnDelay();
+    potatoes.add(new Potato());
+  }else
+    potatoSpawnTimer--;
+}
+
+private void displayPotatoes(){
+  for(Potato p : potatoes)
+      p.display();
+}
+
+private void clearPotatoes(){
+  for(Potato p : potatoes)
+    p.destroy(false);//never just .clear() a list full of box2d bodies, that could get very messy
+  potatoes.clear();
+}
+
 private int potatoStartingLives(){
   return int(map(score, 0, 1000, POTATO_STARTING_LIVES, POTATO_STARTING_LIVES_AT_1000_SCORE));
 }

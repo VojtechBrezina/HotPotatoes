@@ -25,9 +25,6 @@ private void makePlayerBody(float newWidth){
   if(playerBody != null){
     box2d.destroyBody(playerBody);
     playerX = box2d.getBodyPixelCoord(playerBody).x;
-    
-    if(playerWidth != newWidth && playerWidth == PLAYER_INCREASED_WIDTH)
-      destroyPlayerExtension();
   }
   
   playerWidth = newWidth;
@@ -52,12 +49,21 @@ private void makePlayerBody(float newWidth){
 }
 
 private void destroyPlayerExtension(){
-  for(int i = 0; i < 50; i++)
-    particles.add(new PlayerExtensionParticle());
+  if(playerWidth == PLAYER_INCREASED_WIDTH){
+    for(int i = 0; i < 50; i++)
+      particles.add(new PlayerExtensionParticle());
+    makePlayerBody(PLAYER_WIDTH);
+  }
+}
+
+//not really, just the effects of it
+private void destroyPlayer(){
+  for(int i = 0; i < 60; i++)
+    particles.add(new PlayerParticle());
 }
 
 //do one tick with the player
-private void handlePlayer(){
+private void tickPlayer(){
   //player moves with the mouse, but leaves a small gap between himself and the edge
   float tx = max(playerWidth / 2 + 10, min(SCREEN_SIZE - playerWidth / 2 - 10, mouseX));//target x
   float x = box2d.getBodyPixelCoord(playerBody).x;//actual x

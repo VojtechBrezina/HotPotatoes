@@ -49,8 +49,7 @@ private void renderFrame(){
   //the game is rendered under the gui and we'd like to have the coordinates adjusted
   pushMatrix();
   translate(0, GUI_HEIGHT);
-  for(Potato p : potatoes)
-      p.display();
+  displayPotatoes();
   if(gameOver){
     textAlign(CENTER);
     textSize(GUI_LINE_HEIGHT);//something
@@ -60,8 +59,7 @@ private void renderFrame(){
     displayPlayer();
   }
   
-  for(Particle p : particles)
-    p.display();
+  displayParticles();
   popMatrix();
   
   displayGUI();//gui tab (it was getting long)

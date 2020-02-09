@@ -21,18 +21,13 @@ private int spikesLevel;
 //reset everything so it's ready for a new game
 private void newGame(){
   gameOver = false;
-  score = 0;
   
+  score = 0;
+  spikesLevel = 0;
   playerLives = START_PLAYER_LIVES;//adjustable in the player tab
 
-  for(int i = 0; i < STARTING_POTATOES; i++)
-    potatoes.add(new Potato());
-  
-  potatoSpawnTimer = potatoSpawnDelay();
-  
-  spikesLevel = 0;
+  preparePotatoSpawner();
   box2d.setGravity(0, DEFAULT_GRAVITY);
-  
   makePlayerBody(PLAYER_WIDTH);//in the player tab
   
   lastTick = millis();
@@ -43,46 +38,16 @@ private void gameTick(){
   if(paused)//just keep it inside
     return;
   
-  for(Particle p : particles)
-    p.tick();
-  for(int i = particles.size() - 1; i >= 0; i--)
-    if(particles.get(i).dead())
-      particles.remove(i);
+  tickParticles();
+  
   if(gameOver)//on the gameOver screen, only particles are alive
     return;
   
   tickSkills();
-  handlePlayer();
+  tickPlayer();
   box2d.step();
-  
-  for(int i = potatoes.size() - 1; i >= 0; i--){
-    Potato p = potatoes.get(i);
-    if(p.dead()){
-      p.destroy(true);
-      potatoes.remove(i);
-    }else if(p.outOfScreen()){
-      playerLives -= p.lives();
-      p.destroy(false);
-      potatoes.remove(i);
-    }
-  }
-  
-  for(Powerup p : playerPowerups)
-    p.tick();
-  
-  for(int i = playerPowerups.size() - 1; i >= 0; i--){
-    Powerup p = playerPowerups.get(i);
-    if(p.dead()){
-      playerPowerups.remove(i);
-    }
-  }
-      
-                              // it'boring otherwise
-  if(potatoSpawnTimer == 0 || potatoes.size() == 0){
-    potatoSpawnTimer = potatoSpawnDelay();
-    potatoes.add(new Potato());
-  }else
-    potatoSpawnTimer--;
+  tickPotatoes();
+  tickPowerups();
     
   highScore = max(highScore, score);
   
@@ -94,15 +59,10 @@ private void gameOver(){
   playerLives = 0;
   saveStrings("data.txt", new String[]{String.valueOf(highScore)});
   
-  if(playerWidth == PLAYER_INCREASED_WIDTH)
-    destroyPlayerExtension();
-  playerWidth = PLAYER_WIDTH;//it was destroing the extensions of a dead player in newGame()
-  for(int i = 0; i < 60; i++)
-    particles.add(new PlayerParticle());
+  destroyPlayerExtension();
+  destroyPlayer();
     
-  for(Potato p : potatoes)
-    p.destroy(false);//never just .clear() a list full of box2d bodies, that could get very messy
-  potatoes.clear();
+  clearPotatoes();
   
   playerPowerups.clear();
   
