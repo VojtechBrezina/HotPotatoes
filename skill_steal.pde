@@ -48,7 +48,9 @@ private void prepareSteal(){
     public void cast(){
       for(Potato p : potatoes){
         Vec2 pos = p.pos();
-        particles.add(new StealParticle(pos.x, pos.y, p.grabPowerup()));
+        Powerup pw = p.grabPowerup();
+        if(pw != null)
+          particles.add(new StealParticle(pos.x, pos.y, pw));
       }
     }
     public void tick(){}           //
