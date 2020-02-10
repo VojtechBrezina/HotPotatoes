@@ -1,20 +1,20 @@
 //gui things
                   //-vvv- needs to be int, because it's used int size()  
-private static final int GUI_LINE_HEIGHT = int(SCREEN_SIZE * 0.08);
-private static final int GUI_LINE_COUNT = 4;
-private static final int GUI_HEIGHT = GUI_LINE_HEIGHT * GUI_LINE_COUNT;  //Space required for score and other things
-private static final float GUI_PADDING = GUI_LINE_HEIGHT * 0.15;
+private static int GUI_LINE_HEIGHT;
+private static int GUI_LINE_COUNT = 4;
+private static int GUI_HEIGHT;  //Space required for score and other things
+private static float GUI_PADDING;
 
 //pause button def
-private static final float PAUSE_BUTTON_X = SCREEN_SIZE - GUI_LINE_HEIGHT + GUI_PADDING;
-private static final float PAUSE_BUTTON_Y = GUI_PADDING;
-private static final float PAUSE_BUTTON_SIZE = GUI_LINE_HEIGHT - GUI_PADDING * 2;
+private static float PAUSE_BUTTON_X;
+private static float PAUSE_BUTTON_Y;
+private static float PAUSE_BUTTON_SIZE;
 private boolean pauseButtonHovered = false;
 
 //powerups stuff
-private static final float POWERUPS_SIZE = GUI_LINE_HEIGHT - GUI_PADDING * 2;
-private static final float POWERUPS_X = SCREEN_SIZE - POWERUPS_SIZE / 2 - GUI_PADDING;//the're drawn rtl
-private static final float POWERUPS_Y = GUI_LINE_HEIGHT * 2.5;
+private static float POWERUPS_SIZE;
+private static float POWERUPS_X;//the're drawn rtl
+private static float POWERUPS_Y;
 
 //score and things like that
 private void displayGUI(){

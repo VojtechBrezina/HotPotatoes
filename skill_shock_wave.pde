@@ -1,5 +1,5 @@
-private static final float SHOCK_WAVE_RADIUS = SCREEN_SIZE;
-private static final float SHOCK_WAVE_SPEED = 50;
+private static float SHOCK_WAVE_RADIUS;
+private static float SHOCK_WAVE_SPEED;
 
 private PShape shockWaveSkillShape;
 
@@ -75,10 +75,10 @@ private void prepareShockWave(){
       
       pushStyle();
       noFill();
-      strokeWeight(25);
+      strokeWeight(0.035 * SCREEN_SIZE);
       stroke(SHOCK_WAVE_STROKE_COLOR);
       circle(shockWaveX, shockWaveY, SHOCK_WAVE_RADIUS * 2);
-      strokeWeight(20);
+      strokeWeight(0.0285 * SCREEN_SIZE);
       stroke(SHOCK_WAVE_FILL_COLOR);
       circle(shockWaveX, shockWaveY, SHOCK_WAVE_RADIUS * 2);
       popStyle();

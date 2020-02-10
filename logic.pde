@@ -57,7 +57,7 @@ private void gameTick(){
 
 private void gameOver(){
   playerLives = 0;
-  saveStrings("data.txt", new String[]{String.valueOf(highScore)});
+  saveStrings("data.txt", new String[]{String.valueOf(highScore), String.valueOf(SCREEN_SIZE)});
   
   destroyPlayerExtension();
   destroyPlayer();

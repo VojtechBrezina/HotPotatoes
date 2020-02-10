@@ -12,21 +12,18 @@ import java.util.WeakHashMap;
 //sqrt() is expensive...
 private static final float SQRT_2 = sqrt(2);
 
-private static final int SCREEN_SIZE = 700; //The size of the gameScreen
+private static int SCREEN_SIZE = 700; //The size of the gameScreen
 
 private static final int TICK_DELAY = 25; //40tps
 private int lastTick;
 
 public void settings(){
+  loadData();
   size(SCREEN_SIZE, SCREEN_SIZE + GUI_HEIGHT);
 }
 
 public void setup(){
-  try{
-    highScore = parseInt(loadStrings("data.txt")[0]);
-  }catch(Exception e){
-    highScore = 0;
-  }
+  
   initPhysics();
   prepareParticles();
   preparePowerups();
@@ -42,6 +39,48 @@ public void draw(){
   }
   
   renderFrame();
+}
+
+private void loadData(){
+  try{
+    String[] data = loadStrings("data.txt");
+    highScore = parseInt(data[0]);
+    SCREEN_SIZE = parseInt(data[1]);
+    
+  }catch(Exception e){
+    highScore = 0;
+  }
+  
+  POTATO_RADIUS = 0.05 * SCREEN_SIZE;
+  POTATO_STARTING_SPEED = 0.043 * SCREEN_SIZE;
+  POTATO_STARTING_SPEED_AT_1000_SCORE = 0.071 * SCREEN_SIZE;
+  
+  GUI_LINE_HEIGHT = int(SCREEN_SIZE * 0.08);
+  GUI_PADDING = GUI_LINE_HEIGHT * 0.15;
+  GUI_HEIGHT = GUI_LINE_HEIGHT * GUI_LINE_COUNT;
+  GUI_PADDING = GUI_LINE_HEIGHT * 0.15;
+  
+  PAUSE_BUTTON_X = SCREEN_SIZE - GUI_LINE_HEIGHT + GUI_PADDING;
+  PAUSE_BUTTON_Y = GUI_PADDING;
+  PAUSE_BUTTON_SIZE = GUI_LINE_HEIGHT - GUI_PADDING * 2;
+  
+  POWERUPS_SIZE = GUI_LINE_HEIGHT - GUI_PADDING * 2;
+  POWERUPS_X = SCREEN_SIZE - POWERUPS_SIZE / 2 - GUI_PADDING;
+  POWERUPS_Y = GUI_LINE_HEIGHT * 2.5;
+  
+  DEFAULT_GRAVITY = -0.003 * 1000.0 / TICK_DELAY * SCREEN_SIZE;
+  WEAK_GRAVITY = -0.007 * 1000.0 / TICK_DELAY * SCREEN_SIZE;
+  
+  PLAYER_WIDTH = 0.3 * SCREEN_SIZE;
+  PLAYER_INCREASED_WIDTH = 0.5 * SCREEN_SIZE;
+  PLAYER_HEIGHT = 0.07 * SCREEN_SIZE;
+  SPIKE_RADIUS = PLAYER_HEIGHT * 0.2;
+  PLAYER_Y = 0.9 * SCREEN_SIZE;
+  
+  SHOCK_WAVE_RADIUS = SCREEN_SIZE;
+  SHOCK_WAVE_SPEED = 0.07 * SCREEN_SIZE;
+  
+  STEAL_SPEED = 0.042 * SCREEN_SIZE;
 }
 
 //this callback stuff will be heavy on the performance ;(

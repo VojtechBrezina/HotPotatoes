@@ -1,4 +1,4 @@
-private static final float STEAL_SPEED = 30;
+private static float STEAL_SPEED;
 
 private PShape stealSkillShape;
 

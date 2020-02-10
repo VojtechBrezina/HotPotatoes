@@ -1,7 +1,7 @@
 //box2d stuff
 
-private static final float DEFAULT_GRAVITY = -2 * 1000.0 / TICK_DELAY;
-private static final float WEAK_GRAVITY = -0.5 * 1000.0 / TICK_DELAY;
+private static float DEFAULT_GRAVITY;
+private static float WEAK_GRAVITY;
 
 private enum BodyTag{
   PLAYER, SHOCK_WAVE
@@ -25,7 +25,7 @@ private void initPhysics(){
 //prepare the invisible walls around the world
 private void makeWalls(){
   PolygonShape wallShape = new PolygonShape();
-  float wallSize = box2d.scalarPixelsToWorld(SCREEN_SIZE / 2);                                //--v--  not wotking though - might make it afeature...
+  float wallSize = box2d.scalarPixelsToWorld(SCREEN_SIZE / 2);                                //--v--  not wotking though - might make it a feature...
   float bottomGap = box2d.scalarPixelsToWorld(SCREEN_SIZE - PLAYER_Y - PLAYER_HEIGHT / 2);//to make sure the player won't smash potatoes agaist the wall
   wallShape.setAsBox(wallSize, wallSize);
   

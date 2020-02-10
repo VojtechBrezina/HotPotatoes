@@ -1,10 +1,10 @@
 //everything you need to know about potatoes :)
 
-private static final float POTATO_RADIUS = 0.05 * SCREEN_SIZE;
+private static float POTATO_RADIUS;
 private static final int POTATO_STARTING_LIVES = 2;
 private static final int POTATO_STARTING_LIVES_AT_1000_SCORE = 20;
-private static final int POTATO_STARTING_SPEED = 30;
-private static final int POTATO_STARTING_SPEED_AT_1000_SCORE = 50;
+private static float POTATO_STARTING_SPEED;
+private static float POTATO_STARTING_SPEED_AT_1000_SCORE;
 private static final float POTATO_POWERUP_SCALE = POTATO_RADIUS * cos(QUARTER_PI) * 2;
 
 private FixtureDef potatoFixture;
