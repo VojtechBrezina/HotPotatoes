@@ -42,7 +42,7 @@ private void prepareShockWave(){
   shockWaveSkill = new Skill(800, shockWaveSkillShape, 
   new SkillListener(){
     public void cast(){
-      shockWaveX = box2d.getBodyPixelCoord(playerBody).x;
+      shockWaveX = playerX;
       shockWaveY = PLAYER_Y + SHOCK_WAVE_RADIUS;
       shockWaveBodyDef.position.set(box2d.coordPixelsToWorld(shockWaveX, shockWaveY));
       shockWaveBody = box2d.createBody(shockWaveBodyDef);

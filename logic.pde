@@ -43,8 +43,8 @@ private void gameTick(){
   if(gameOver)//on the gameOver screen, only particles are alive
     return;
   
-  tickSkills();
   tickPlayer();
+  tickSkills();
   box2d.step();
   tickPotatoes();
   tickPowerups();

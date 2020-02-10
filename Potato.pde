@@ -5,7 +5,7 @@ private static final int POTATO_STARTING_LIVES = 2;
 private static final int POTATO_STARTING_LIVES_AT_1000_SCORE = 20;
 private static float POTATO_STARTING_SPEED;
 private static float POTATO_STARTING_SPEED_AT_1000_SCORE;
-private static final float POTATO_POWERUP_SCALE = POTATO_RADIUS * cos(QUARTER_PI) * 2;
+private static float POTATO_POWERUP_SCALE;
 
 private FixtureDef potatoFixture;
 private BodyDef potatoBodyDef;
@@ -106,7 +106,7 @@ private final class Potato{
   }
 
   public void display(){
-    Vec2 pos = box2d.getBodyPixelCoord(body);
+    Vec2 pos = pos();
     stroke(POTATO_STROKE_COLOR);
     fill(POTATO_FILL_COLOR);//rendering tab
     circle(pos.x, pos.y, POTATO_RADIUS * 2);
@@ -114,7 +114,7 @@ private final class Potato{
     if(powerup != null){
       pushMatrix();
       translate(pos.x, pos.y);
-      scale(POTATO_POWERUP_SCALE);//might make a constant for that...
+      scale(POTATO_POWERUP_SCALE);
       powerup.display();
       popMatrix();
     }
@@ -129,7 +129,7 @@ private final class Potato{
   }
   
   public void dealDamage(int damage){
-    Vec2 pos = box2d.getBodyPixelCoord(body);
+    Vec2 pos = pos();
     pos.addLocal(random(-POTATO_RADIUS , POTATO_RADIUS), random(-POTATO_RADIUS , POTATO_RADIUS));
     for(int i = 0; i < 3 * damage; i++){//the more damage, the more particles :)
         if(powerup == null || random(1) < 0.5)
@@ -153,6 +153,10 @@ private final class Potato{
   
   public boolean dead(){
     return lives <= 0;
+  }
+  
+  public Vec2 pos(){
+    return box2d.getBodyPixelCoord(body);
   }
   
   public boolean outOfScreen(){

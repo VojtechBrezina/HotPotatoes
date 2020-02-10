@@ -101,7 +101,7 @@ private final class PlayerExtensionParticle extends Particle{
   public PlayerExtensionParticle(){
     // sory, but Java is like: "THE CONSTRUCTOR CALL MUST BE THE FIRST STATEMENT IN THE CONSTRUCTOR !!!"
     //... and I am too lazy to do it any other way...
-    super(box2d.getBodyPixelCoord(playerBody).x + (random(2) < 1 ? -1 : 1) * random(PLAYER_WIDTH / 2, PLAYER_INCREASED_WIDTH / 2), PLAYER_Y + random(-PLAYER_HEIGHT / 2, PLAYER_HEIGHT / 2), 
+    super(playerX + (random(2) < 1 ? -1 : 1) * random(PLAYER_WIDTH / 2, PLAYER_INCREASED_WIDTH / 2), PLAYER_Y + random(-PLAYER_HEIGHT / 2, PLAYER_HEIGHT / 2), 
       random(TWO_PI), random(-0.007 * SCREEN_SIZE, 0.007 * SCREEN_SIZE), random(-0.011 * SCREEN_SIZE, -0.003 * SCREEN_SIZE), random(-0.1, 0.1), playerExtensionParticleShape);
   }
 }
@@ -110,7 +110,7 @@ private final class PlayerParticle extends Particle{
   public PlayerParticle(){
     // sory, but Java is like: "THE CONSTRUCTOR CALL MUST BE THE FIRST STATEMENT IN THE CONSTRUCTOR !!!"
     //... and I am too lazy to do it any other way...
-    super(box2d.getBodyPixelCoord(playerBody).x + random(-PLAYER_WIDTH / 2, PLAYER_WIDTH / 2), PLAYER_Y + random(-PLAYER_HEIGHT / 2, PLAYER_HEIGHT / 2), 
+    super(playerX + random(-PLAYER_WIDTH / 2, PLAYER_WIDTH / 2), PLAYER_Y + random(-PLAYER_HEIGHT / 2, PLAYER_HEIGHT / 2), 
       random(TWO_PI), random(-0.007 * SCREEN_SIZE, 0.007 * SCREEN_SIZE), random(-0.011 * SCREEN_SIZE, -0.003 * SCREEN_SIZE), random(-0.1, 0.1), playerParticleShape);
   }
 }

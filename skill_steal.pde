@@ -47,14 +47,13 @@ private void prepareSteal(){
   stealSkill = new Skill(700, stealSkillShape, new SkillListener(){
     public void cast(){
       for(Potato p : potatoes){
-        Powerup pw = p.grabPowerup();
-        if(pw != null)
-          addPowerupToPlayer(pw);
+        Vec2 pos = p.pos();
+        particles.add(new StealParticle(pos.x, pos.y, p.grabPowerup()));
       }
     }
-    public void tick(){}
-    public void displayEffects(){}
-    public void reset(){}
+    public void tick(){}           //
+    public void displayEffects(){} //no need for this bs, cause it's handled by the particle engine :)
+    public void reset(){}          //
   });
 }
 
@@ -72,6 +71,25 @@ private class StealParticle extends Particle{
   }
   
   public void tick() {
+    if(!dead){
+      PVector delta = new PVector(playerX - x, PLAYER_Y - y);
+      delta.normalize();
+      delta.mult(STEAL_SPEED);
+      x += delta.x;
+      y += delta.y;
+      if(y >= PLAYER_Y){
+        dead = true;
+        addPowerupToPlayer(powerup);
+      }
+    }
     
+  }
+  
+  public void display(){
+    pushMatrix();
+    translate(x, y);
+    scale(POTATO_POWERUP_SCALE);
+    powerup.display();
+    popMatrix();
   }
 }
