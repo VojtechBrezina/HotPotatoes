@@ -67,16 +67,16 @@ private abstract class Particle{
     this.shape = shape;
   }
   
-  public final void tick(){
+  public void tick(){
     x += dx; y += dy; r += dr;
     dy += 0.5;
   }
   
-  public final boolean dead(){
+  public boolean dead(){
     return y > SCREEN_SIZE + 100;
   }
   
-  public final void display(){
+  public void display(){
     pushMatrix();
     translate(x, y);
     rotate(r);

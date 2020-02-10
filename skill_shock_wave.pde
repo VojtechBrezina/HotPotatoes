@@ -10,7 +10,6 @@ private BodyDef shockWaveBodyDef;
 private Body shockWaveBody = null;
 private boolean shockWaveOnScreen = false;
 
-
 private Skill shockWaveSkill;
 
 private void prepareShockWave(){
