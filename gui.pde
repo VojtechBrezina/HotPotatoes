@@ -93,6 +93,11 @@ public void mousePressed(){
 //!important The system will spam this event as long as you hold the key (as often as in the system settings for key repeating) and we want only the first press
 private HashSet<Character> pressedKeys = new HashSet<Character>();
 public void keyPressed(){
+  if(key == 27){
+    saveData();
+    return;
+  }
+  
   if(!pressedKeys.contains(key)){
     switch(key){
       case 'p':
