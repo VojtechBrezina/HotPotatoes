@@ -81,7 +81,8 @@ private class StealParticle extends Particle{
       y += delta.y;
       if(y >= PLAYER_Y){
         dead = true;
-        addPowerupToPlayer(powerup);
+        if(!gameOver)//the game doesn't kill particles in game over and you don't want to see youself dead with 1 life left...
+          addPowerupToPlayer(powerup);
       }
     }
     
