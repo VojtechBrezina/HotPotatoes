@@ -91,25 +91,21 @@ public void mousePressed(){
 }
 
 //!important The system will spam this event as long as you hold the key (as often as in the system settings for key repeating) and we want only the first press
-private boolean pauseKeyPressed = false;
+private HashSet<Character> pressedKeys = new HashSet<Character>();
 public void keyPressed(){
-  switch(key){
-    case 'p':
-      if(!pauseKeyPressed){
-        paused = !paused;
-        pauseKeyPressed = true;
-      }
-      break;
-    default:
-      checkForSkillCasts();
-      break;
+  if(!pressedKeys.contains(key)){
+    switch(key){
+      case 'p':
+        paused = !paused; break;
+      case 'd':
+        debug = !debug; break;
+      default:
+        checkForSkillCasts(); break;
+    }
+    pressedKeys.add(key);
   }
 }
 
 public void keyReleased(){
-  switch(key){
-    case 'p':
-      pauseKeyPressed = false;
-      break;
-  }
+  pressedKeys.remove(key);
 }

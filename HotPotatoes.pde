@@ -6,8 +6,10 @@ import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
 
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.LinkedList;
+import java.util.ListIterator;
+
+import java.util.HashSet;
 
 //sqrt() is expensive...
 private static final float SQRT_2 = sqrt(2);

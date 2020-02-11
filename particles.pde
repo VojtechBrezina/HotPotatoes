@@ -1,6 +1,6 @@
 //particle stuff
 
-private ArrayList<Particle> particles = new ArrayList<Particle>();
+private LinkedList<Particle> particles = new LinkedList<Particle>();
 
 
 private PShape potatoParticleShape, powerupParticleShape, playerExtensionParticleShape, playerParticleShape;
@@ -48,11 +48,13 @@ private void displayParticles(){
 }
 
 private void tickParticles(){
-  for(Particle p : particles)
+  ListIterator<Particle> iterator = particles.listIterator(0);
+  while(iterator.hasNext()){
+    Particle p = iterator.next();
     p.tick();
-  for(int i = particles.size() - 1; i >= 0; i--)
-    if(particles.get(i).dead())
-      particles.remove(i);
+    if(p.dead())
+      iterator.remove();
+  }
 }
 
 

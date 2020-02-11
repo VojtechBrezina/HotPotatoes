@@ -63,6 +63,8 @@ private void renderFrame(){
   noClip();
   
   displayParticles();
+  
+  displayDebug();
   popMatrix();
   
   displayGUI();//gui tab (it was getting long)
