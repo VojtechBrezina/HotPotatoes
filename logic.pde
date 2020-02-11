@@ -9,9 +9,6 @@ private static final int STARTING_POTATOES = 1;
 private int score;
 private int highScore;
 
-private ArrayList<Potato> potatoes = new ArrayList<Potato>();
-private int potatoSpawnTimer;
-
 private boolean paused = false;
 private boolean gameOver;
 

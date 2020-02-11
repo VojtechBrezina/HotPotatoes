@@ -10,6 +10,9 @@ private static float POTATO_POWERUP_SCALE;
 private FixtureDef potatoFixture;
 private BodyDef potatoBodyDef;
 
+private LinkedList<Potato> potatoes = new LinkedList<Potato>();
+private int potatoSpawnTimer;
+
 
 private void preparePotatoSpawner(){
   for(int i = 0; i < STARTING_POTATOES; i++)
@@ -33,15 +36,16 @@ private void definePotato(){
 }
 
 private void tickPotatoes(){
-  for(int i = potatoes.size() - 1; i >= 0; i--){
-    Potato p = potatoes.get(i);
+  ListIterator<Potato> iterator = potatoes.listIterator(0);
+  while(iterator.hasNext()){
+    Potato p = iterator.next();
     if(p.dead()){
       p.destroy(true);
-      potatoes.remove(i);
+      iterator.remove();
     }else if(p.outOfScreen()){
       playerLives -= p.lives();
       p.destroy(false);
-      potatoes.remove(i);
+      iterator.remove();
     }
   }
                               // it'boring otherwise

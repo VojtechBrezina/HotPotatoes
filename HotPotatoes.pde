@@ -26,7 +26,6 @@ public void settings(){
 
 public void setup(){
   surface.setTitle("Hot Potatoes - ESC to close");
-  surface.setupExternalMessages();
   
   initPhysics();
   prepareParticles();
@@ -45,6 +44,7 @@ public void draw(){
   renderFrame();
 }
 
+//overriding the built-in processing method to inject the saving of data
 public void exitActual(){
   saveData();
   super.exitActual();
