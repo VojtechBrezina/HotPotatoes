@@ -2,14 +2,24 @@ private static final String DATA_FILE = "data.txt";
 
 private static final String DATA_KEY_SCREEN_SIZE = "ScreenSize";
 private static final String DATA_KEY_HIGH_SCORE = "HighScore";
+private static final String DATA_KEY_VERSION = "Version";
+
+private static final int DATA_VERSION = 1;
 
 private void loadData(){
+  initDefaultData();
+  
   try{
     JSONObject data = loadJSONObject(DATA_FILE);
-    SCREEN_SIZE = data.getInt(DATA_KEY_SCREEN_SIZE);
-    highScore = data.getInt(DATA_KEY_HIGH_SCORE);
+    int version = data.getInt(DATA_KEY_VERSION);
+    
+    if(version >= 1){
+      SCREEN_SIZE = data.getInt(DATA_KEY_SCREEN_SIZE);
+      highScore = data.getInt(DATA_KEY_HIGH_SCORE);
+    }
+    
+    
   }catch(Exception e){
-    initDefaultData();
   }
   
   calculateSizes();
@@ -19,6 +29,7 @@ private void saveData(){
   JSONObject data = new JSONObject();
   data.setInt(DATA_KEY_SCREEN_SIZE, SCREEN_SIZE);
   data.setInt(DATA_KEY_HIGH_SCORE, highScore);
+  data.setInt(DATA_KEY_VERSION, DATA_VERSION);
   saveJSONObject(data, DATA_FILE);
 }
 

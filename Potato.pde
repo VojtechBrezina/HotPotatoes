@@ -57,7 +57,7 @@ private void tickPotatoes(){
 }
 
 private void displayPotatoes(){
-  for(Potato p : potatoes)
+  for(Potato p : potatoes)//hope this is good enough...
       p.display();
 }
 
