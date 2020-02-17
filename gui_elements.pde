@@ -4,7 +4,7 @@ private class GUIElement{
   protected GUIElementContent content;
   private boolean hovered = false;
   public boolean enabled = true;
-  private GUIElementListener listener;
+  protected GUIElementListener listener;
   
   public GUIElement(float x, float y, float w, float h, boolean db, GUIElementContent c, GUIElementListener l){
     this.x = x; this.y = y; this.w = w; this.h = h;
@@ -20,8 +20,6 @@ private class GUIElement{
     }
     content.display();
   }
-  
-  
 }
 
 private interface GUIElementListener{
@@ -46,6 +44,10 @@ private class TextContent extends GUIElementContent{
     size = s;
   }
   
+  public void set(String t){
+    text = t;
+  }
+  
   public void display(){
     pushStyle();
     textSize(size);
@@ -57,5 +59,20 @@ private class TextContent extends GUIElementContent{
 }
 
 private class Button extends GUIElement{
+  private ButtonListener buttonListener;
   
+  public Button(float x, float y, float w, float h, GUIElementContent c, ButtonListener bl){
+    super(x, y, w, h, true, c, null);
+    listener = new GUIElementListener(){
+      public void hovered(){}
+      public void clicked(){
+        buttonListener.clicked();
+      }
+    };
+    buttonListener = bl;
+  }
+}
+
+private interface ButtonListener{
+  public void clicked();
 }
